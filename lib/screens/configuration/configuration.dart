@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import '../../widgets/configuration/configuration_layout.dart';
 import '../../widgets/shared/dropdown_input_field.dart';
 import '../../widgets/shared/error_modal.dart';
 import '../../services/configuration.dart';
+import '../../constants/routes.dart';
 
 class ConfigurationScreen extends StatefulWidget {
   const ConfigurationScreen({super.key});
@@ -34,7 +36,9 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
           errorMessage: "Please select an hospital",
           width: 200,
           height: 200);
-    } else {}
+    } else {
+      Navigator.pushNamed(context, CONFIGURATION_SCREEN_SUCCESS_ROUTE);
+    }
   }
 
   @override
@@ -51,9 +55,7 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
 
   Future<void> _loadData() async {
     final apiResponse = await fetchHospitals();
-    setState(() {
-      
-    });
+    setState(() {});
   }
 
   Widget build(BuildContext context) {

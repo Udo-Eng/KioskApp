@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import '../../screens/configuration/configuration.dart';
 
 class ConfigurationLayout extends StatelessWidget {
+  Widget childWidget;
+  ConfigurationLayout({required this.childWidget});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +22,7 @@ class ConfigurationLayout extends StatelessWidget {
               ),
               Container(
                 margin: EdgeInsets.fromLTRB(0, 0, 0, 200),
-                child: ConfigurationScreen(),
+                child: childWidget,
               ),
             ],
           ),
