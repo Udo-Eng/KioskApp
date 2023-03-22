@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (ctx) => HospitalListProvider(),
       child: MaterialApp(
-          title: 'Flutter Demo',
+          title: 'Health Station Kiosk App',
           theme: ThemeData(
             // This is the theme of your application.
             //
