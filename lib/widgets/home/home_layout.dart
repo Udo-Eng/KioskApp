@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-class ConfigurationLayout extends StatelessWidget {
+class HomeLayout extends StatelessWidget {
   Widget childWidget;
-  ConfigurationLayout({required this.childWidget});
+
+  HomeLayout({super.key, required this.childWidget});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class ConfigurationLayout extends StatelessWidget {
             children: [
               Container(
                 alignment: Alignment.center,
-                padding: EdgeInsets.fromLTRB(0, 83, 0, 200),
+                padding: EdgeInsets.fromLTRB(0, 83, 0, 114),
                 child: Image.asset(
                   "assets/logo/logo.png",
                   width: 181,
