@@ -1,12 +1,13 @@
-import "package:flutter/material.dart";
-import "../constants/routes.dart";
-import '../screens/home.dart';
-import "../widgets/configuration/configuration_layout.dart";
+import 'package:flutter/material.dart';
+import '../constants/routes.dart';
+import '../widgets/home/home_layout.dart';
+import '../screens/home/home.dart';
+import '../widgets/configuration/configuration_layout.dart';
 import '../screens/configuration/configuration.dart';
 import '../screens/configuration/configuration_success.dart';
 
 Map<String, WidgetBuilder> routes = {
-  HOME_SCREEN_ROUTE: (context) => HomePage(title: "Home Page"),
+  HOME_SCREEN_ROUTE: (context) => HomeLayout(childWidget: HomeScreen()),
   CONFIGURATION_SCREEN_ROUTE: (context) => ConfigurationLayout(
         childWidget: ConfigurationScreen(),
       ),

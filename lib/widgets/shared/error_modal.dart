@@ -8,7 +8,7 @@ sharedErrorModal({context, errorMessage, width, height}) {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
           child: Container(
-            constraints: BoxConstraints(maxHeight: 200, maxWidth: 200),
+            constraints: const BoxConstraints(maxHeight: 200, maxWidth: 200),
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Column(
@@ -28,7 +28,7 @@ sharedErrorModal({context, errorMessage, width, height}) {
                       textAlign: TextAlign.center,
                       text: TextSpan(
                           text: errorMessage,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 14,
                             color: Colors.redAccent,

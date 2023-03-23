@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import '../../widgets/configuration/configuration_layout.dart';
 import '../../widgets/shared/dropdown_input_field.dart';
 import '../../widgets/shared/error_modal.dart';
 import '../../services/configuration.dart';
@@ -125,8 +122,29 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
                     width: 300,
                     height: 64,
                     child: ElevatedButton(
-                        onPressed: _handleSelectHospital,
-                        child: Text('Submit')),
+                      onPressed: _dropdownInputValue == "Select" ||
+                              _dropdownInputValue == null
+                          ? null
+                          : _handleSelectHospital,
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStatePropertyAll(
+                          _dropdownInputValue == "Select" ||
+                                  _dropdownInputValue == null
+                              ? Color(0xffB6DAF6)
+                              : Color(0xff1B88DF),
+                        ),
+                      ),
+                      child: const Text(
+                        'Submit',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 28,
+                          fontFamily: 'Avenir',
+                          letterSpacing: -0.5,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ),
                   )
                 ],
               ),
