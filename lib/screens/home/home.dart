@@ -1,10 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:kiosk_desktop_app/constants/routes.dart';
 import '../../widgets/home/widgets/card_widget.dart';
 import '../../icons/svg.dart';
 import '../../widgets/wallet/card_reader_modal.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  bool _isWalletModalOpened = false;
+
+  void _handleSetIsWalletModalOpenedValue(bool value) {
+    setState(() {
+      _isWalletModalOpened = value;
+    });
+  }
 
   void handlePayBillsPage() {
     print('Pay Bills Page');
@@ -16,7 +30,14 @@ class HomeScreen extends StatelessWidget {
 
   void _handleWalletPage(BuildContext context) {
     print('Wallet Page');
-    EWalletCardReaderModal(context: context);
+    _handleSetIsWalletModalOpenedValue(true);
+    if (true) {
+      Navigator.pushNamed(context, WALLET_SCREEN_ROUTE);
+    } else {
+      EWalletCardReaderModal(
+          context: context,
+          updateModalStateValue: _handleSetIsWalletModalOpenedValue);
+    }
   }
 
   @override
