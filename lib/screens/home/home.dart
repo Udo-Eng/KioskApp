@@ -11,7 +11,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   void handleAppointmentPage() {
-    print('Appointment Page');
+    Navigator.pushNamed(context, APPOINTMENT_SCREEN_ROUTE);
   }
 
   void _handleWalletPage(BuildContext context) {
