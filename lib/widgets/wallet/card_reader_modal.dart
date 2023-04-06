@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import '../../icons/svg.dart';
 
-Dialog? EWalletCardReaderModal({context}) {
+Dialog? EWalletCardReaderModal({context, updateModalStateValue}) {
+  void handleModalClose() {
+    updateModalStateValue(false);
+    Navigator.pop(context);
+  }
+
   showDialog(
       barrierDismissible: false,
       context: context,
@@ -25,9 +30,7 @@ Dialog? EWalletCardReaderModal({context}) {
               child: Column(
                 children: [
                   GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
+                    onTap: handleModalClose,
                     child: Container(
                       alignment: Alignment.topRight,
                       child: ModalCloseIconSvg(),

@@ -98,3 +98,36 @@ Widget NFCCardReaderIconSvg({double? width, double? height, Color? color}) {
     color: color,
   );
 }
+
+Widget HeaderBackIconSvg({double? width, double? height, Color? color}) {
+  return SvgPicture.string(
+    '''<svg width="30" height="52" viewBox="0 0 30 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M28.7548 1.20887C27.4073 -0.138633 25.2348 -0.138633 23.8873 1.20887L1.03484 24.0614C-0.0376562 25.1339 -0.0376562 26.8664 1.03484 27.9389L23.8873 50.7914C25.2348 52.1389 27.4073 52.1389 28.7548 50.7914C30.1023 49.4439 30.1023 47.2714 28.7548 45.9239L8.84484 25.9864L28.7823 6.04887C30.1023 4.72887 30.1023 2.52887 28.7548 1.20887Z" fill="#0E0F11"/>
+</svg>''',
+    width: width,
+    height: height,
+    color: color,
+  );
+}
+
+Widget WalletParagraphDot({double? width, double? height, Color? color}) {
+  return SvgPicture.string(
+    '''<svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+<ellipse cx="8.11446" cy="7.5" rx="7.46212" ry="7.5" fill="#051827" fill-opacity="0.79"/>
+</svg>''',
+    width: width,
+    height: height,
+    color: color,
+  );
+}
+
+Widget FundWalletParagraphIcon({double? width, double? height, Color? color}) {
+  return SvgPicture.string(
+    '''<svg width="38" height="36" viewBox="0 0 38 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M37.3337 17.9919L33.267 13.3586L33.8337 7.22526L27.817 5.85859L24.667 0.558594L19.0003 2.99193L13.3337 0.558594L10.1837 5.85859L4.16699 7.20859L4.73366 13.3419L0.666992 17.9919L4.73366 22.6253L4.16699 28.7753L10.1837 30.1419L13.3337 35.4419L19.0003 32.9919L24.667 35.4253L27.817 30.1253L33.8337 28.7586L33.267 22.6253L37.3337 17.9919ZM20.667 26.3253H17.3337V22.9919H20.667V26.3253ZM20.667 19.6586H17.3337V9.65859H20.667V19.6586Z" fill="#5EABE9"/>
+</svg>''',
+    width: width,
+    height: height,
+    color: color,
+  );
+}
