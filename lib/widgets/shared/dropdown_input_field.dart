@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import '../../models/hospital_list_model.dart';
 
 class SharedDropdownInput extends StatelessWidget {
   final String hintText;
-  final List<String> options;
+  final List<HospitalListModel> options;
   final value;
   final Function(String?)? onChanged;
 
@@ -44,10 +45,11 @@ class SharedDropdownInput extends StatelessWidget {
         // backgroundColor: Colors.white,
       ),
 
-      items: options.map<DropdownMenuItem<String>>((String value) {
+      items:
+          options.map<DropdownMenuItem<String>>((HospitalListModel hospital) {
         return DropdownMenuItem(
-          value: value,
-          child: Text(value),
+          value: hospital.ID,
+          child: Text(hospital.Name),
         );
       }).toList(),
     );

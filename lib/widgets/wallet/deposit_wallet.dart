@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './new_deposit_modal.dart';
 
 class MakeNewDepositWallet extends StatefulWidget {
   const MakeNewDepositWallet({super.key});
@@ -8,6 +9,10 @@ class MakeNewDepositWallet extends StatefulWidget {
 }
 
 class _MakeNewDepositWalletState extends State<MakeNewDepositWallet> {
+  void _handleNewDeposit() {
+    NewDepositModal(context: context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -97,11 +102,11 @@ class _MakeNewDepositWalletState extends State<MakeNewDepositWallet> {
                         ),
                         shadowColor:
                             MaterialStateProperty.all(Colors.transparent),
-                        backgroundColor: MaterialStatePropertyAll(
+                        backgroundColor: const MaterialStatePropertyAll(
                           Color(0xffe4f1fc),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: _handleNewDeposit,
                       child: const Text(
                         'Make new deposit',
                         style: TextStyle(
