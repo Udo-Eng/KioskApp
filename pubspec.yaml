@@ -69,6 +69,16 @@ flutter:
           weight: 600
         - asset: assets/fonts/avenirltstd-black-webfont.ttf
           weight: 800
+
+    - family: NotoSans
+      fonts:
+        - asset: assets/fonts/NotoSans-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/NotoSans-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/NotoSans-SemiBold.ttf
+          weight: 600
+
   assets:
     - assets/logo/logo.png
 

@@ -41,7 +41,7 @@ class _MakeNewDepositWalletState extends State<MakeNewDepositWallet> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      child: Text(
+                      child: const Text(
                         '₦ 0.00',
                         style: TextStyle(
                           fontSize: 44,

@@ -11,15 +11,15 @@ import '../screens/appointment/appointment.dart';
 import '../widgets/appointment/appointment_layout.dart';
 
 Map<String, WidgetBuilder> routes = {
-  HOME_SCREEN_ROUTE: (context) => HomeLayout(childWidget: HomeScreen()),
+  HOME_SCREEN_ROUTE: (context) => HomeLayout(childWidget: const HomeScreen()),
   CONFIGURATION_SCREEN_ROUTE: (context) => ConfigurationLayout(
-        childWidget: ConfigurationScreen(),
+        childWidget: const ConfigurationScreen(),
       ),
   CONFIGURATION_SCREEN_SUCCESS_ROUTE: (context) =>
-      ConfigurationLayout(childWidget: ConfigurationSuccessScreen()),
+      ConfigurationLayout(childWidget: const ConfigurationSuccessScreen()),
   WALLET_SCREEN_ROUTE: (context) => WalletLayout(
-        childWidget: WalletScreen(),
+        childWidget: const WalletScreen(),
       ),
   APPOINTMENT_SCREEN_ROUTE: (context) =>
-      AppointmentLayout(childWidget: AppointmentScreen()),
+      AppointmentLayout(childWidget: const AppointmentScreen()),
 };
