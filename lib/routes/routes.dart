@@ -7,8 +7,10 @@ import '../screens/configuration/configuration.dart';
 import '../screens/configuration/configuration_success.dart';
 import '../widgets/wallet/wallet_layout.dart';
 import '../screens/wallet/wallet.dart';
-import '../screens/appointment/appointment.dart';
 import '../widgets/appointment/appointment_layout.dart';
+import '../screens/appointment/appointment.dart';
+import '../screens/appointment/new_appointment.dart';
+
 
 Map<String, WidgetBuilder> routes = {
   HOME_SCREEN_ROUTE: (context) => HomeLayout(childWidget: const HomeScreen()),
@@ -22,4 +24,6 @@ Map<String, WidgetBuilder> routes = {
       ),
   APPOINTMENT_SCREEN_ROUTE: (context) =>
       AppointmentLayout(childWidget: const AppointmentScreen()),
+  NEW_APPOINTMENT_SCREEN_ROUTE: (context) =>
+      AppointmentLayout(childWidget: const NewAppointmentScreen()),
 };

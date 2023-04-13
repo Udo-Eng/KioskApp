@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'new_appointment.dart';
+
 class AppointmentScreen extends StatelessWidget {
   const AppointmentScreen({super.key});
 
@@ -167,6 +169,10 @@ class AppointmentScreen extends StatelessWidget {
 
             ElevatedButton(
               onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const NewAppointmentScreen()),
+                );
                 // Handle button press
               },
               child: const Padding(

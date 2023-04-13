@@ -66,9 +66,9 @@ Dialog? FundWalletModal(
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.fromLTRB(0, 0, 0, 66),
+                      margin: const EdgeInsets.fromLTRB(0, 0, 0, 66),
                       height: 1,
-                      color: Color(0xffD0D4D9),
+                      color: const Color(0xffD0D4D9),
                       width: 618,
                     ),
                     Wrap(
@@ -86,9 +86,9 @@ Dialog? FundWalletModal(
                       ],
                     ),
                     Container(
-                      margin: EdgeInsets.fromLTRB(0, 25, 0, 26),
+                      margin: const EdgeInsets.fromLTRB(0, 25, 0, 26),
                       height: 1,
-                      color: Color(0xffD0D4D9),
+                      color: const Color(0xffD0D4D9),
                       width: 682,
                     ),
                     Padding(
@@ -130,9 +130,9 @@ Dialog? FundWalletModal(
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.fromLTRB(0, 22, 0, 26),
+                      margin: const EdgeInsets.fromLTRB(0, 22, 0, 26),
                       height: 1,
-                      color: Color(0xffD0D4D9),
+                      color: const Color(0xffD0D4D9),
                       width: 682,
                     ),
                     Padding(
@@ -176,7 +176,7 @@ Dialog? FundWalletModal(
                     Container(
                       margin: const EdgeInsets.fromLTRB(0, 21, 0, 39),
                       height: 1,
-                      color: Color(0xffD0D4D9),
+                      color: const Color(0xffD0D4D9),
                       width: 682,
                     ),
                     Row(

@@ -13,20 +13,20 @@ class AppointmentLayout extends StatelessWidget {
     }
 
     return Scaffold(
-        backgroundColor: Color(0xFFFAFDFE),
+        backgroundColor: const Color(0xFFFAFDFE),
         body: SingleChildScrollView(
           child: Column(
             children: [
               Container(
                 alignment: Alignment.center,
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                 child: HeaderWidget(
                   headerTitle: "Patient Profile",
                   onBackButtonPress: goBackToHomePage,
                 ),
               ),
               Container(
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 200),
+                margin: const EdgeInsets.fromLTRB(0, 0, 0, 200),
                 child: childWidget,
               ),
             ],

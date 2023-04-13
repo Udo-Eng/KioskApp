@@ -3,3 +3,4 @@ const CONFIGURATION_SCREEN_ROUTE = '/configuration';
 const CONFIGURATION_SCREEN_SUCCESS_ROUTE = '/configuration/success';
 const WALLET_SCREEN_ROUTE = '/wallet';
 const APPOINTMENT_SCREEN_ROUTE = '/appointment';
+const NEW_APPOINTMENT_SCREEN_ROUTE = '/new/appointment';
