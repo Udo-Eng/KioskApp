@@ -24,6 +24,5 @@ Map<String, WidgetBuilder> routes = {
       ),
   APPOINTMENT_SCREEN_ROUTE: (context) =>
       AppointmentLayout(childWidget: const AppointmentScreen()),
-  NEW_APPOINTMENT_SCREEN_ROUTE: (context) =>
-      AppointmentLayout(childWidget: const NewAppointmentScreen()),
+NEW_APPOINTMENT_SCREEN_ROUTE: (context) => const NewAppointmentScreen(),
 };

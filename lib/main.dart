@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
       create: (ctx) => HospitalListProvider(),
       child: MaterialApp(
           title: 'Health Station Kiosk App',
+          debugShowCheckedModeBanner: false,
           theme: ThemeData(
             // This is the theme of your application.
             //
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
             // is not restarted.
             primarySwatch: Colors.blue,
           ),
-          initialRoute: CONFIGURATION_SCREEN_ROUTE,
+          initialRoute: NEW_APPOINTMENT_SCREEN_ROUTE,
           routes: routes),
     );
   }
