@@ -118,7 +118,7 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.fromLTRB(0, 75, 0, 0),
+                    margin: const EdgeInsets.fromLTRB(0, 75, 0, 0),
                     width: 300,
                     height: 64,
                     child: ElevatedButton(
@@ -130,8 +130,8 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
                         backgroundColor: MaterialStatePropertyAll(
                           _dropdownInputValue == "Select" ||
                                   _dropdownInputValue == null
-                              ? Color(0xffB6DAF6)
-                              : Color(0xff1B88DF),
+                              ? const Color(0xffB6DAF6)
+                              : const Color(0xff1B88DF),
                         ),
                       ),
                       child: const Text(

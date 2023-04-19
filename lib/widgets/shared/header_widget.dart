@@ -3,12 +3,18 @@ import '../../icons/svg.dart';
 
 class HeaderWidget extends StatelessWidget {
   final String headerTitle;
+  final String? navText;
   final VoidCallback onBackButtonPress;
   const HeaderWidget(
-      {super.key, required this.headerTitle, required this.onBackButtonPress});
+      {super.key,
+      required this.headerTitle,
+      required this.onBackButtonPress,
+      this.navText});
 
   @override
   Widget build(BuildContext context) {
+    final text = navText ?? "back";
+
     return Container(
       width: double.infinity,
       height: 121,
@@ -22,32 +28,30 @@ class HeaderWidget extends StatelessWidget {
         color: Color.fromRGBO(249, 249, 249, 0.9),
       ),
       child: Container(
-        margin: EdgeInsets.fromLTRB(46.23, 0, 46.23, 0),
-
+        margin: const EdgeInsets.fromLTRB(46.23, 0, 46.23, 0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              child: GestureDetector(
-                  onTap: onBackButtonPress,
-                  child: Row(
-                    children: [
-                      HeaderBackIconSvg(),
-                      Container(
-                        margin: EdgeInsets.fromLTRB(15.23, 0, 0, 0),
-                        child: const Text(
-                          "Back",
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w800,
-                            fontFamily: 'Avenir',
-                            fontStyle: FontStyle.normal,
-                            color: Color(0xff1E2024),
-                          ),
-                        ),
-                      )
-                    ],
-                  )),
+          children: <Widget>[
+            GestureDetector(
+              onTap: onBackButtonPress,
+              child: Row(
+                children: [
+                  HeaderBackIconSvg(),
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(15.23, 0, 0, 0),
+                    child: Text(
+                      text,
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w800,
+                        fontFamily: 'Avenir',
+                        fontStyle: FontStyle.normal,
+                        color: Color(0xff1E2024),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
             Expanded(
               flex: 21,

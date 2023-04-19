@@ -151,7 +151,7 @@ class _NewAppointmentFormState extends State<NewAppointmentForm> {
             ),
 
             // BOOK AN APPOINTMENT BUTTON
-            SizedBox(
+            const SizedBox(
               width: 672,
               height: 80,
               child: Center(
@@ -159,10 +159,15 @@ class _NewAppointmentFormState extends State<NewAppointmentForm> {
                   width: 563,
                   height: 77,
                   child: ElevatedButton(
-                    onPressed: () {
-                      // Handle button press
-                    },
-                    child: const Padding(
+                    onPressed: null,
+                    // onPressed: () {
+                    //   Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(builder: (context) => const NewAppointmentScreen()),
+                    //   );
+                    //   // Handle button press
+                    // },
+                    child: Padding(
                       padding: EdgeInsets.symmetric(
                           vertical: 15.0, horizontal: 90.0),
                       child: Text(

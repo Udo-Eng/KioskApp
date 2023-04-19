@@ -8,8 +8,14 @@ class CancelAppointmentButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void handleCloseAppointmentButton() {
+      Navigator.pop(context);
+    }
+
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        handleCloseAppointmentButton();
+      },
       child: CancelAppointmentIcon(
         width: 45,
         height: 45,
