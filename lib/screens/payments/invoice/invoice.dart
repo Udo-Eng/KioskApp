@@ -9,6 +9,7 @@ class InvoiceScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     const String title = "Invoice Number";
     const String description =
         "Enter the invoice number to view the invoice and make payments";
@@ -21,7 +22,7 @@ class InvoiceScreen extends StatelessWidget {
 
 
     return Container(
-      width: 1075,
+      width: width,
       height: 1700,
       decoration: const BoxDecoration(
           border: Border.symmetric(
@@ -36,6 +37,7 @@ class InvoiceScreen extends StatelessWidget {
           title: title,
           description: description,
           onSubmit: onSubmitHandler,
+          hintText: 'Enter invoice number',
         ),
     );
   }

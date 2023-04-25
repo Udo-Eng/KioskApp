@@ -112,6 +112,21 @@ class BillsTable extends StatelessWidget {
                       children: [
                         FilterSvg(),
                         const Text("Filter by;"),
+
+                        // Add a dropDown Button Here
+                        DropdownButton(items: const [
+                          DropdownMenuItem(child: 
+                            Text("outstanding")
+                          ),
+                            DropdownMenuItem(child: 
+                            Text("paid")
+                          ),
+                            DropdownMenuItem(child: 
+                            Text("all")
+                          )
+                        ], onChanged: (_){
+
+                        }),
                       ],
                     ))
               ],

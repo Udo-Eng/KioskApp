@@ -12,3 +12,14 @@ Future<dynamic> fetchHospitals() async {
     throw Exception('failed to load data');
   }
 }
+
+Future<dynamic> fetchInvoiceDetails(String invoiceNumber) async {
+  final response =
+      await get(Uri.parse('$API_BASE_URL/Lookup/$invoiceNumber/invoice'));
+
+      if (response.statusCode == 200) {
+        return json.decode(response.body);
+      } else {
+        throw Exception('failed to load data');
+      }
+}

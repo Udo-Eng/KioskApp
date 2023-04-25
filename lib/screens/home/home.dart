@@ -22,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void handlePayBillsPage() {
     print('Pay Bills Page');
+    Navigator.pushNamed(context, PAYMENT_INVOICE);
   }
 
   void handleAppointmentPage() {

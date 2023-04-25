@@ -6,11 +6,13 @@ class InvoiceForm extends StatefulWidget {
   final String title;
   final String description;
   final Function onSubmit;
+  final String hintText;
 
   const InvoiceForm(
       {required this.title,
       required this.description,
       required this.onSubmit,
+      required this.hintText,
       super.key});
 
   @override
@@ -83,9 +85,9 @@ class _InvoiceFormState extends State<InvoiceForm> {
                 ),
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: const TextField(
+              child:  TextField(
                 cursorHeight: 40,
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: "Avenir",
                   fontSize: 28,
                   fontWeight: FontWeight.w800,
@@ -94,7 +96,8 @@ class _InvoiceFormState extends State<InvoiceForm> {
                 ),
                 cursorColor: Colors.black,
                 decoration: InputDecoration(
-                    border: InputBorder.none, hintText: 'Enter invoice number'),
+                    border: InputBorder.none, 
+                    hintText: widget.hintText),
               ),
             ),
             const SizedBox(

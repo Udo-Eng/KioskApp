@@ -7,6 +7,7 @@ class RetrieveBillsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const String title = " Patient Number";
+    double width = MediaQuery.of(context).size.width;
     const String description =
         "Enter the patient number to view all bill invoice under the patient’s name and make payments too ";
 
@@ -15,7 +16,7 @@ class RetrieveBillsScreen extends StatelessWidget {
     }
 
     return Container(
-      width: 1075,
+      width: width,
       height: 1700,
       decoration: const BoxDecoration(
           border: Border.symmetric(
@@ -30,6 +31,7 @@ class RetrieveBillsScreen extends StatelessWidget {
           title: title,
           description: description,
           onSubmit: onSubmitHandler,
+          hintText: 'Enter Patient number',
         ),
     );
   }

@@ -11,7 +11,6 @@ import '../widgets/payment/invoice/invoice_layout.dart';
 import '../screens/payments/invoice/invoice.dart';
 import '../screens/payments/retrieve_bills/retrieve_bills.dart';
 import '../screens/payments/invoice/invoice_details.dart';
-// import '../screens/payments/modals.dart';
 import '../screens/payments/retrieve_bills/retrieve_bills_outstanding.dart';
 import '../screens/payments/retrieve_bills/retrieve_bills_paid.dart';
 import '../screens/payments/retrieve_bills/retrieve_bills_all.dart';
