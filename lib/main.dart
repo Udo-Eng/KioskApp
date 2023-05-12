@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
       create: (ctx) => HospitalListProvider(),
       child: MaterialApp(
           title: 'Health Station Kiosk App',
+          debugShowCheckedModeBanner: false,
           theme: ThemeData(
             // This is the theme of your application.
             //

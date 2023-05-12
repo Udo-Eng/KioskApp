@@ -12,3 +12,4 @@ Future<dynamic> fetchHospitals() async {
     throw Exception('failed to load data');
   }
 }
+

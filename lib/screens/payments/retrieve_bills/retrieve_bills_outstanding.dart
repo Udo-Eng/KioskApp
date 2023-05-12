@@ -11,7 +11,7 @@ class RetrieveBillsOutStandingScreen extends StatelessWidget {
       child: Column(
         children: const [
           BillsDescription(),
-          BillsTable(tableTitle: "Outstanding Invoices",),
+          BillsTable(),
         ],
       ),
     );

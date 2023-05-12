@@ -6,11 +6,12 @@ class SharedDropdownInput extends StatelessWidget {
   final value;
   final Function(String?)? onChanged;
 
-  SharedDropdownInput({
+  const SharedDropdownInput({
     required this.hintText,
     required this.value,
     required this.options,
     required this.onChanged,
+    super.key
   });
 
   // SharedDropdownInput({
@@ -22,24 +23,22 @@ class SharedDropdownInput extends StatelessWidget {
   // });
 
   @override
-  Widget build(BuildContext content) {
+  Widget build(BuildContext context) {
     return DropdownButton<String>(
       hint: Text(hintText),
       elevation: 10,
       itemHeight: 64,
       menuMaxHeight: 300,
-      underline: Text(""),
+      underline: const Text(""),
       value: value,
       onChanged: onChanged,
       isDense: true,
       isExpanded: true,
       focusColor: Colors.blue,
       iconSize: 0,
-      // underline: Text(""),
-
       dropdownColor: Colors.white,
 
-      style: TextStyle(
+      style: const TextStyle(
         color: Color(0xff828282),
         // backgroundColor: Colors.white,
       ),

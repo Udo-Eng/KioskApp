@@ -1,9 +1,37 @@
 import "package:flutter/material.dart";
+import "../modals/payment_option.dart";
 
-class InvoiceTable extends StatelessWidget {
-  InvoiceTable({super.key});
+class InvoiceTable extends StatefulWidget {
+
+  const InvoiceTable({super.key});
+
+  @override
+  State<InvoiceTable> createState() => _InvoiceTableState();
+}
+
+class _InvoiceTableState extends State<InvoiceTable> {
+
+
+     void closePaymentOptionsModal(BuildContext context){
+    Navigator.of(context).pop();
+  }
+
+  void displayPaymentOptionsModal(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          child: PaymentOption(cancelModal: () => closePaymentOptionsModal(context) ,),
+        );
+      },
+    );
+  }
 
   final tableHeader = ['Item', 'Amount', 'Qty', 'Total'];
+
   final lists = [
     {
       'id': '1',
@@ -210,7 +238,6 @@ class InvoiceTable extends StatelessWidget {
                     ),
 
                     // SUBTOTAL CONTAINER
-
                     const SizedBox(
                       height: 95,
                     ),
@@ -331,7 +358,7 @@ class InvoiceTable extends StatelessWidget {
                       foregroundColor: Colors.white,
                       backgroundColor: const Color.fromRGBO(27, 136, 223, 1)),
                   onPressed: () {
-                    // Navigator.pushNamed(context, '/all-bills');
+                    displayPaymentOptionsModal(context);
                   },
                   child: const Text(
                     'Make payment',

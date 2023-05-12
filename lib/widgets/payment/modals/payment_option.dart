@@ -1,9 +1,22 @@
 import "package:flutter/material.dart";
 import "./schedule_success.dart";
 import "../../../icons/svg.dart";
+import "../../../constants/routes.dart";
 
 class PaymentOption extends StatelessWidget {
-  const PaymentOption({super.key});
+  final VoidCallback cancelModal;
+
+  const PaymentOption({required this.cancelModal, super.key});
+
+  void navigateToFastCareWallet(BuildContext context) {
+    // TODO NAVIGATE TO FASTCARE WALLET  WIDGET
+    Navigator.of(context).pushNamed(PAYMENT_INVOICE);
+  }
+
+  void navigateToDebitCard(BuildContext context) {
+    // TODO NAVIGATE TO  DEBIT CARD WIDGET
+    // Navigator.of(context).pushNamed(PAYMENT_RETRIEVE_BILLS);
+  }
 
   void _displayScheduleSuccessModal(BuildContext context) {
     showDialog(
@@ -19,13 +32,10 @@ class PaymentOption extends StatelessWidget {
     );
   }
 
-
 // function to  close modal and navigate back to form screen
-
- void _closeBottomModalSheet(BuildContext context) {
+  void _closeBottomModalSheet(BuildContext context) {
     Navigator.of(context).pop();
   }
-
 
   @override
   Widget build(BuildContext context) {

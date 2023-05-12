@@ -11,7 +11,6 @@ import '../widgets/payment/invoice/invoice_layout.dart';
 import '../screens/payments/invoice/invoice.dart';
 import '../screens/payments/retrieve_bills/retrieve_bills.dart';
 import '../screens/payments/invoice/invoice_details.dart';
-// import '../screens/payments/modals.dart';
 import '../screens/payments/retrieve_bills/retrieve_bills_outstanding.dart';
 import '../screens/payments/retrieve_bills/retrieve_bills_paid.dart';
 import '../screens/payments/retrieve_bills/retrieve_bills_all.dart';
@@ -63,7 +62,7 @@ Map<String, WidgetBuilder> routes = {
   PAYMENT_RETRIEVE_BILLS_ALL: (context) {
     return InvoiceLayout(
       childWidget: const RetrieveBillsAllScreen(),
-      title: "Patient Invoice",
+      title: "Retrieve Bills",
       navText: "Home",
       onBackButtonPress: () => navigateToHome(context, HOME_SCREEN_ROUTE),
     );
@@ -71,7 +70,7 @@ Map<String, WidgetBuilder> routes = {
   PAYMENT_RETRIEVE_BILLS_PAID: (context) {
     return InvoiceLayout(
       childWidget: const RetrieveBillsPaidScreen(),
-      title: "Patient Invoice",
+      title: "Retrieve Bills",
       navText: "Home",
       onBackButtonPress: () => navigateToHome(context, HOME_SCREEN_ROUTE),
     );
