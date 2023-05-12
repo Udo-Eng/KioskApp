@@ -1,8 +1,21 @@
 import "package:flutter/material.dart";
 import "../../../icons/svg.dart";
+import "../../../constants/routes.dart";
 
-class FundWallet extends StatelessWidget {
-  const FundWallet({super.key});
+class PaymentType extends StatelessWidget {
+
+  final VoidCallback cancelModal;
+
+  const PaymentType({required this.cancelModal,super.key});
+
+  void navigateToPayInvoice(BuildContext context){
+          Navigator.of(context).pushNamed(PAYMENT_INVOICE);
+  }
+
+ void navigateToRetrieveBills(BuildContext context){
+      Navigator.of(context).pushNamed(PAYMENT_RETRIEVE_BILLS);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +52,13 @@ class FundWallet extends StatelessWidget {
                 const SizedBox(
                   width: 268,
                 ),
-                CancelSvg(
-                  color: const Color.fromRGBO(27, 136, 223, 1),
-                  width: 31,
-                  height: 30,
+                GestureDetector(
+                  onTap: cancelModal,
+                  child: CancelSvg(
+                    color: const Color.fromRGBO(27, 136, 223, 1),
+                    width: 31,
+                    height: 30,
+                  ),
                 )
               ],
             ),
@@ -74,7 +90,7 @@ class FundWallet extends StatelessWidget {
                   fontWeight: FontWeight.w800,
                 ),
               )),
-              onPressed: () {},
+              onPressed: () {  navigateToPayInvoice(context);},
             ),
           ),
           const SizedBox(height: 64),
@@ -105,7 +121,7 @@ class FundWallet extends StatelessWidget {
                   ),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {  navigateToRetrieveBills(context); },
             ),
           ),
         ],

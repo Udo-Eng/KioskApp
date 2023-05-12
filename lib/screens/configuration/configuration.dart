@@ -52,14 +52,17 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
 
   Future<void> _loadData() async {
     final apiResponse = await fetchHospitals();
-    setState(() {});
+    print(apiResponse);
+    setState(() {
+        _dropdownOptions = [...apiResponse];
+    });
   }
 
   Widget build(BuildContext context) {
     return Visibility(
       visible: _isLoading,
       child: FutureBuilder(
-          future: fetchHospitals(),
+          future: _loadData(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             print(snapshot);
             return Container(

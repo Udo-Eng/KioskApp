@@ -1,11 +1,10 @@
 import "package:flutter/material.dart";
 import '../../../widgets/payment/invoice/invoice_form.dart';
+import '../../../constants/routes.dart';
 
 class InvoiceScreen extends StatelessWidget {
 
   const InvoiceScreen({super.key});
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +14,10 @@ class InvoiceScreen extends StatelessWidget {
         "Enter the invoice number to view the invoice and make payments";
 
     void onSubmitHandler() {
-      // print("Form submitted");
+      
+      // Navigate to the invoice Details page 
+      Navigator.of(context).pushNamed(PAYMENT_INVOICE_DETAILS);
     }
-
-    // Added the  Border color to the screen 
 
 
     return Container(

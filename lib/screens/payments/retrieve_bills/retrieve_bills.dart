@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "../../../constants/routes.dart";
 import '../../../widgets/payment/invoice/invoice_form.dart';
 
 class RetrieveBillsScreen extends StatelessWidget {
@@ -11,8 +12,8 @@ class RetrieveBillsScreen extends StatelessWidget {
     const String description =
         "Enter the patient number to view all bill invoice under the patient’s name and make payments too ";
 
-    void onSubmitHandler() {
-      // print("Form submitted");
+    void onSubmitHandler(BuildContext context) {
+       Navigator.of(context).pushNamed(PAYMENT_RETRIEVE_BILLS_ALL);
     }
 
     return Container(

@@ -1,8 +1,17 @@
-enum Status {
+enum Status{
   outstanding,
   paid,
   all,
 }
+
+
+// ignore: non_constant_identifier_names
+Map<Status,String> StatusMap = {
+   Status.outstanding : "outstanding",
+   Status.all : "all",
+   Status.paid : "paid",
+};
+
 
 class Invoice {
 
@@ -10,8 +19,8 @@ class Invoice {
   final DateTime time;
   final String invoiceNumber;
   final int items;
-  final double amount;
-  final Status status;
+  final String amount;
+  final String status;
 
 
   Invoice({
@@ -23,3 +32,4 @@ class Invoice {
     required this.status,
   });
 }
+

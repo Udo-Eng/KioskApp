@@ -11,9 +11,7 @@ class RetrieveBillsPaidScreen extends StatelessWidget {
       child: Column(
         children: const [
           BillsDescription(),
-          BillsTable(
-            tableTitle: "Paid Invoices",
-          ),
+          BillsTable(),
         ],
       ),
     );

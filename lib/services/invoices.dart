@@ -1,4 +1,24 @@
-import "./invoice_item.dart";
+import 'dart:convert';
+import 'package:http/http.dart';
+import "../configs/app_config.dart";
+
+
+Future<dynamic> fetchInvoiceDetails(String invoiceNumber) async {
+
+
+  final response =
+      await get(Uri.parse('$API_BASE_URL/Lookup/$invoiceNumber/invoice?hospitalId=D8D8538E-4911-4748-A93B-FC427F316CF3?application=HmisPay'));
+
+      if (response.statusCode == 200) {
+
+       Map result =  json.decode(response.body);
+
+       return result;
+
+      } else {
+        throw Exception('failed to load data');
+      }
+}
 
 
 // Request Url https://switch.healthstation.ng/api/Lookup/IN20270/invoice?application=HmisPay&hospitalId=D8D8538E-4911-4748-A93B-FC427F316CF3
@@ -39,42 +59,3 @@ import "./invoice_item.dart";
 //     }
 //   ]
 // }
-
-
-enum Status {
-  outstanding,
-  paid,
-  all,
-}
-
-class InvoiceDetails {
-  final String patientName;
-  final String  patientID;
-  final String invoiceNumber;
-  final String  physicianName;
-  final String total;
-  final String  grandTotal;
-  final double discountAmount;
-  final String   tel;
-  final DateTime date;
-  final DateTime time;
-  final List<InvoiceItem>  items; 
- 
-
-  InvoiceDetails({
-    required this.patientName,
-    required this.patientID,
-    required this.invoiceNumber,
-    required this.physicianName,
-    required this.tel,
-    required this.date,
-    required this.time,
-    required this.items,
-    required this.grandTotal,
-    required this.discountAmount,
-    required this.total,
-  });
-}
-
-
-

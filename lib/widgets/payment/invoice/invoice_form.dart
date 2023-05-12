@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "../../shared/custom_button.dart";
-import "../modals/payment_option.dart";
+// import "../modals/payment_option.dart";
+// import "../../../constants/routes.dart";
 
 class InvoiceForm extends StatefulWidget {
   final String title;
@@ -20,19 +21,6 @@ class InvoiceForm extends StatefulWidget {
 }
 
 class _InvoiceFormState extends State<InvoiceForm> {
-  void displayPaymentOptionsModal(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-          child: const PaymentOption(),
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +85,8 @@ class _InvoiceFormState extends State<InvoiceForm> {
                 cursorColor: Colors.black,
                 decoration: InputDecoration(
                     border: InputBorder.none, 
-                    hintText: widget.hintText),
+                    hintText: widget.hintText,
+                    ),
               ),
             ),
             const SizedBox(
@@ -105,7 +94,7 @@ class _InvoiceFormState extends State<InvoiceForm> {
             ),
             CustomButton(
               text: "Submit",
-              onClickHandler: () => displayPaymentOptionsModal(context),
+              onClickHandler: () => widget.onSubmit(context),
             ),
           ]),
     );

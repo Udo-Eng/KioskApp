@@ -62,7 +62,7 @@ Map<String, WidgetBuilder> routes = {
   PAYMENT_RETRIEVE_BILLS_ALL: (context) {
     return InvoiceLayout(
       childWidget: const RetrieveBillsAllScreen(),
-      title: "Patient Invoice",
+      title: "Retrieve Bills",
       navText: "Home",
       onBackButtonPress: () => navigateToHome(context, HOME_SCREEN_ROUTE),
     );
@@ -70,7 +70,7 @@ Map<String, WidgetBuilder> routes = {
   PAYMENT_RETRIEVE_BILLS_PAID: (context) {
     return InvoiceLayout(
       childWidget: const RetrieveBillsPaidScreen(),
-      title: "Patient Invoice",
+      title: "Retrieve Bills",
       navText: "Home",
       onBackButtonPress: () => navigateToHome(context, HOME_SCREEN_ROUTE),
     );

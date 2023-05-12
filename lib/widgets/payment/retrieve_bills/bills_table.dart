@@ -1,9 +1,92 @@
 import 'package:flutter/material.dart';
+import "package:intl/intl.dart";
 import '../../../icons/svg.dart';
+import '../../../models/invoice.dart';
+import '../../../dummy_data.dart';
+import '../../../constants/routes.dart';
 
-class BillsTable extends StatelessWidget {
-  final String tableTitle;
-  const BillsTable({required this.tableTitle, super.key});
+class BillsTable extends StatefulWidget {
+ 
+
+  const BillsTable({super.key});
+
+  @override
+  State<BillsTable> createState() => _BillsTableState();
+}
+
+class _BillsTableState extends State<BillsTable> {
+  String? filterValue = StatusMap[Status.all];
+  List<Invoice> displayList = [];
+  List<Invoice> filteredList = [];
+  String tableTitle = "All Invoices";
+
+
+  List<Invoice> convertListToInvoice(lists) {
+    List<Invoice> invoiceList = [];
+
+    for (var item in lists) {
+
+
+     DateTime date = DateTime.parse(item["date"]);
+
+      invoiceList.add(
+        Invoice(
+          amount: item["amount"],
+          date: date,
+          time: date,
+          invoiceNumber: item["number"],
+          items: int.parse(item["items"]),
+          status: item["status"],
+        ),
+      );
+    }
+
+    return invoiceList;
+  }
+
+
+  void updateTableTitle(){
+    if (filterValue == StatusMap[Status.outstanding] ) {
+        tableTitle =  "Outstanding Invoices";
+      } else if (filterValue == StatusMap[Status.paid]) {
+       tableTitle = "Paid Invoices";
+      }else{
+       tableTitle = "All Invoices";
+      }
+  }
+
+  List<Invoice> filterList(List<Invoice> lists) {
+    return lists.where((item) {
+      if (filterValue == StatusMap[Status.outstanding] &&
+          item.status == "outstanding") {
+        return true;
+      } else if (filterValue == StatusMap[Status.paid] &&
+          item.status == "paid") {
+        return true;
+      }else if(filterValue == StatusMap[Status.all]){
+        return true;
+      }else{
+        return false;
+      }
+    }).toList();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+   displayList = convertListToInvoice(lists);
+   filteredList = filterList(displayList);
+   tableTitle = "All Invoices";
+  }
+
+
+  @override
+  void dispose() {
+    super.dispose();
+    displayList = convertListToInvoice(lists);
+    filteredList = filterList(displayList);
+    tableTitle = "All Invoices";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,64 +99,12 @@ class BillsTable extends StatelessWidget {
       'Status',
       ''
     ];
-    var lists = [
-      {
-        'date': '02/11/2020',
-        'time': '10:30:20am',
-        'number': 'IN19530',
-        'items': '5',
-        'amount': '14,000.00',
-        'status': 'outstanding'
-      },
-      {
-        'date': '02/11/2020',
-        'time': '10:30:20am',
-        'number': 'RE857309',
-        'items': '3',
-        'amount': '3,000.00',
-        'status': 'outstanding'
-      },
-      {
-        'date': '02/11/2020',
-        'time': '10:30:20am',
-        'number': '19530',
-        'items': '1',
-        'amount': '1,500.00',
-        'status': 'paid'
-      },
-      {
-        'date': '02/11/2020',
-        'time': '10:30:20am',
-        'number': '19530',
-        'items': '1',
-        'amount': '1,500.00',
-        'status': 'outstanding'
-      },
-      {
-        'date': '02/11/2020',
-        'time': '10:30:20am',
-        'number': 'RE857309',
-        'items': '3',
-        'amount': '3,000.00',
-        'status': 'paid'
-      },
-      {
-        'date': '02/11/2020',
-        'time': '10:30:20am',
-        'number': '19530',
-        'items': '1',
-        'amount': '1,500.00',
-        'status': 'outstanding'
-      },
-      {
-        'date': '02/11/2020',
-        'time': '10:30:20am',
-        'number': '19530',
-        'items': '1',
-        'amount': '1,500.00',
-        'status': 'paid'
-      }
-    ];
+
+    const dropDownTextStyle = TextStyle(
+      color: Color.fromRGBO(130, 130, 130, 1),
+      fontSize: 18,
+    );
+
     return Container(
       width: 995,
       decoration: BoxDecoration(
@@ -101,37 +132,62 @@ class BillsTable extends StatelessWidget {
                 Container(
                     width: 136,
                     height: 48,
+                    padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: const Color.fromRGBO(205, 229, 249, 1),
                       ),
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        FilterSvg(),
-                        const Text("Filter by;"),
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
 
-                        // Add a dropDown Button Here
-                        DropdownButton(items: const [
-                          DropdownMenuItem(child: 
-                            Text("outstanding")
-                          ),
-                            DropdownMenuItem(child: 
-                            Text("paid")
-                          ),
-                            DropdownMenuItem(child: 
-                            Text("all")
-                          )
-                        ], onChanged: (_){
+                          FilterSvg(),
 
-                        }),
-                      ],
+                          const SizedBox(width: 10),
+                  
+                          // Add a dropDown Button Here
+                          DropdownButton(
+                              underline: const Text(""),
+                              iconSize: 0,
+                              value: filterValue,
+                              items: [
+                                DropdownMenuItem(
+                                    value: StatusMap[Status.outstanding],
+                                    child: const Text(
+                                      "outstanding",
+                                      style: dropDownTextStyle,
+                                    )),
+                                DropdownMenuItem(
+                                    value: StatusMap[Status.paid],
+                                    child: const Text(
+                                      "paid",
+                                      style: dropDownTextStyle,
+                                    )),
+                                DropdownMenuItem(
+                                    value: StatusMap[Status.all],
+                                    child: const Text(
+                                      "all",
+                                      style: dropDownTextStyle,
+                                    ))
+                              ],
+                              // Event Handler function to update the list and title of the Table
+                              onChanged: (selectedValue) {
+                                setState(() {
+                                  filterValue = selectedValue;
+                                  filteredList = filterList(displayList);
+                                  updateTableTitle();
+                                });
+                              }),
+                        ],
+                      ),
                     ))
               ],
             ),
           ),
+
           const SizedBox(
             height: 35.0,
           ),
@@ -141,10 +197,10 @@ class BillsTable extends StatelessWidget {
               columnWidths: const <int, TableColumnWidth>{
                 0: FixedColumnWidth(50),
                 1: FixedColumnWidth(150),
-                // 1: FlexColumnWidth(),
-                // 2: FixedColumnWidth(300),
               },
               children: [
+                // HEADER TABLE
+
                 TableRow(
                   children: headers
                       .map(
@@ -165,6 +221,9 @@ class BillsTable extends StatelessWidget {
               ],
             ),
           ),
+
+          // BODY TABLE
+
           Table(
             border: const TableBorder(
               horizontalInside: BorderSide(
@@ -189,13 +248,10 @@ class BillsTable extends StatelessWidget {
             columnWidths: const <int, TableColumnWidth>{
               0: FixedColumnWidth(50),
               1: FixedColumnWidth(150),
-              // 0: IntrinsicColumnWidth(),
-              // 1: FlexColumnWidth(),
-              // 2: FixedColumnWidth(300),
             },
             defaultVerticalAlignment: TableCellVerticalAlignment.middle,
             children: [
-              for (var list in lists)
+              for (var invoice in filteredList)
                 TableRow(children: [
                   Padding(
                     padding: const EdgeInsets.fromLTRB(40, 30, 0, 30),
@@ -214,12 +270,16 @@ class BillsTable extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          list['date'] as String,
+                          DateFormat.yMd().format(invoice.date),
+                          // invoice.date.toString(),
+                          // list["date"] as String,
                           style: const TextStyle(
                               color: Color.fromRGBO(62, 65, 76, 1),
                               fontSize: 18),
                         ),
-                        Text(list['time'] as String,
+                        Text(
+                            DateFormat.jms().format(invoice.time),
+                            // list["time"] as String,
                             style: const TextStyle(
                                 color: Color.fromRGBO(131, 135, 153, 1),
                                 fontSize: 14)),
@@ -228,21 +288,9 @@ class BillsTable extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(40, 30, 0, 30),
-                    child: Text(list['number'] as String,
-                        style: const TextStyle(
-                            color: Color.fromRGBO(62, 65, 76, 1),
-                            fontSize: 18)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(40, 30, 0, 30),
-                    child: Text(list['items'] as String,
-                        style: const TextStyle(
-                            color: Color.fromRGBO(62, 65, 76, 1),
-                            fontSize: 18)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(40, 30, 0, 30),
-                    child: Text(list['amount'] as String,
+                    child: Text(
+                        invoice.invoiceNumber,
+                        // list["number"] as String,
                         style: const TextStyle(
                             color: Color.fromRGBO(62, 65, 76, 1),
                             fontSize: 18)),
@@ -250,18 +298,41 @@ class BillsTable extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(40, 30, 0, 30),
                     child: Text(
-                      list['status'] as String,
-                      style: const TextStyle(
-                          color: Color.fromRGBO(237, 161, 47, 1), fontSize: 18),
+                        invoice.items.toString(),
+                        // list["items"] as String,
+                        style: const TextStyle(
+                            color: Color.fromRGBO(62, 65, 76, 1),
+                            fontSize: 18)),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(40, 30, 0, 30),
+                    child: Text(
+                        invoice.amount,
+                        // list["amount"] as String,
+                        style: const TextStyle(
+                            color: Color.fromRGBO(62, 65, 76, 1),
+                            fontSize: 18)),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(40, 30, 0, 30),
+                    child: Text(
+                      invoice.status,
+                      // list["status"] as String,
+                      style:  TextStyle(
+                        // color: Color.fromRGBO(237, 161, 47, 1),
+                        color: (invoice.status == "outstanding")
+                            ? const Color.fromRGBO(237, 161, 47, 1)
+                            : const Color.fromRGBO(24, 179, 104, 1),
+                        fontSize: 18,
+                      ),
                     ),
                   ),
                   Container(
                     width: 50,
                     height: 40,
-                    margin:const EdgeInsets.all(25),
+                    margin: const EdgeInsets.all(25),
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          
                           backgroundColor:
                               const Color.fromRGBO(27, 136, 223, 1),
                           textStyle: const TextStyle(
@@ -272,13 +343,13 @@ class BillsTable extends StatelessWidget {
                             fontWeight: FontWeight.w800,
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pushNamed(PAYMENT_INVOICE_DETAILS);
+                        },
                         child: const Text('View')),
                   )
                 ])
-              // TableRow(
-              //
-              // )
             ],
           ),
         ],
