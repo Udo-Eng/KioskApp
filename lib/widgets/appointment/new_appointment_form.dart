@@ -5,6 +5,8 @@ import './form_widgets/date_picker_field.dart';
 import './form_widgets/drop_down_menu.dart';
 import './form_widgets/availiable_time.dart';
 import './cancel_appointment_button.dart';
+import './schedule_success_modal.dart';
+
 
 class NewAppointmentForm extends StatefulWidget {
   const NewAppointmentForm({super.key});
@@ -19,6 +21,12 @@ class _NewAppointmentFormState extends State<NewAppointmentForm> {
 
   @override
   Widget build(BuildContext context) {
+    void handleScheduleSuccessModal() {
+      ScheduleSuccessModal(
+          context: context, accountNumber: '2265734987', bankName: "ReadyCash");
+    }
+
+
     return Container(
       width: 773,
       padding: const EdgeInsets.all(20),
@@ -159,14 +167,12 @@ class _NewAppointmentFormState extends State<NewAppointmentForm> {
                   width: 563,
                   height: 77,
                   child: ElevatedButton(
-                    onPressed: null,
-                    // onPressed: () {
-                    //   Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(builder: (context) => const NewAppointmentScreen()),
-                    //   );
-                    //   // Handle button press
-                    // },
+                    onPressed: () {
+                      // ScheduleSuccessModal(
+                      //     context: context, accountNumber: '2265734987', bankName: "ReadyCash");
+                      // Handle button press
+                    },
+                    // onPressed: ,
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                           vertical: 15.0, horizontal: 90.0),

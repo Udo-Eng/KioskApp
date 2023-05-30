@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import './fund_wallet_modal.dart';
 
 class FundWallet extends StatefulWidget {
@@ -100,7 +101,7 @@ class _FundWalletState extends State<FundWallet> {
                               borderRadius: BorderRadius.circular(3.42292)),
                         ),
                         backgroundColor:
-                            MaterialStatePropertyAll(Color(0xff1B88DF)),
+                            const MaterialStatePropertyAll(Color(0xff1B88DF)),
                       ),
                       onPressed: handleFundWalletModal,
                       child: const Text(
