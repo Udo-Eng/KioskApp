@@ -3,10 +3,10 @@ import 'package:kiosk_desktop_app/models/hospital_configuration_model.dart';
 import 'package:kiosk_desktop_app/models/hospital_list_model.dart';
 import 'package:kiosk_desktop_app/providers/configuration_provider.dart';
 import 'package:kiosk_desktop_app/providers/hospital_list_provider.dart';
-import '../../widgets/shared/dropdown_input_field.dart';
-import '../../widgets/shared/error_modal.dart';
-import '../../services/configuration.dart';
-import '../../constants/routes.dart';
+// import 'package:kiosk_desktop_app/routes/key.dart';
+import 'package:kiosk_desktop_app/widgets/shared/error_modal.dart';
+import 'package:kiosk_desktop_app/services/configuration.dart';
+import 'package:kiosk_desktop_app/constants/routes.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
 
@@ -21,7 +21,7 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
   bool _isLoading = false;
   Future<List<HospitalListModel>> _futureDropdownOptions =
       ConfigurationApiService.fetchHospitals();
-  String _dropdownInputValue = "";
+  String? _dropdownInputValue = null;
   final String _dropdownHintText = "Select hospital";
   List<HospitalListModel> _dropdownData = [];
 
@@ -72,7 +72,7 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
       } else {
         final apiResponse =
             await ConfigurationApiService.fetchHospitalConfiguration(
-                _dropdownInputValue);
+                _dropdownInputValue as String);
         final decodeApiResponse = json.decode(apiResponse.body);
         if (apiResponse.statusCode == 200) {
           hospital_list_provider.addHospitals(_dropdownData);
@@ -96,6 +96,7 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
           setState(() {
             _isLoading = false;
           });
+
           Navigator.pushNamed(context, CONFIGURATION_SCREEN_SUCCESS_ROUTE);
         } else {
           _showErrorModal(decodeApiResponse['message']);
@@ -177,11 +178,36 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
                           width: 0.7,
                         )),
                     padding: EdgeInsets.fromLTRB(10, 25, 10, 0),
-                    child: SharedDropdownInput(
-                      hintText: _dropdownHintText,
+                    // child: SharedDropdownInput(
+                    //   hintText: _dropdownHintText,
+                    //   value: _dropdownInputValue,
+                    //   options: _dropdownData,
+                    //   onChanged: _onChangeDropdownInput,
+                    // ),
+                    child: DropdownButton<String>(
+                      hint: Text(_dropdownHintText),
+                      elevation: 10,
+                      itemHeight: 64,
+                      menuMaxHeight: 300,
+                      underline: const Text(""),
                       value: _dropdownInputValue,
-                      options: _dropdownData,
                       onChanged: _onChangeDropdownInput,
+                      isDense: true,
+                      isExpanded: true,
+                      focusColor: Colors.blue,
+                      iconSize: 0,
+                      dropdownColor: Colors.white,
+                      style: const TextStyle(
+                        color: Color(0xff828282),
+                        // backgroundColor: Colors.white,
+                      ),
+                      items: _dropdownData.map<DropdownMenuItem<String>>(
+                          (HospitalListModel hospital) {
+                        return DropdownMenuItem(
+                          value: hospital.ID,
+                          child: Text(hospital.Name),
+                        );
+                      }).toList(),
                     ),
                   ),
                   Container(
