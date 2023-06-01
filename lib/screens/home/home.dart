@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
             margin: const EdgeInsets.fromLTRB(44, 0, 20, 35),
             child: const Text(
               'What would like to do today?',
-              // ConfigurationProvider.hospitalConfigurationDetails.Name,
+            //  ConfigurationProvider.hospitalConfigurationDetails.HospitalId,
               style: TextStyle(
                 fontFamily: 'Avenir',
                 fontSize: 36,

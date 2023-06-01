@@ -1,0 +1,108 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Health Station Kiosk Web Payment</title>
+                <style>
+                    #loading-container {
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                      height: 100vh;
+                    }
+
+                    #loading {
+                      width: 50px;
+                      height: 50px;
+                      border: 5px solid #f3f3f3;
+                      border-top: 5px solid #3498db;
+                      border-radius: 50%;
+                      animation: spin 1s infinite linear;
+                    }
+
+                    @keyframes spin {
+                      0% {
+                        transform: rotate(0deg);
+                      }
+                      100% {
+                        transform: rotate(360deg);
+                      }
+                    }
+                    /* Firefox */
+                    * {
+                      scrollbar-width: thin;
+                      scrollbar-color: #c5d8fc;
+                    }
+
+                    /* Chrome, Edge, and Safari */
+                    *::-webkit-scrollbar {
+                      width: 4px;
+                    }
+
+                    *::-webkit-scrollbar-track {
+                      background: transparent;
+                      border-radius: 5px;
+                    }
+
+                    *::-webkit-scrollbar-thumb {
+                      background-color: transparent;
+                      border-radius: 14px;
+                      border: 3px solid #c5d8fc;
+                    }
+                </style>
+    </head>
+    <body>
+            <div id="loading-container">
+                <div id="loading"></div>
+            </div>
+         <script src="https://parkwaycdnstorage.blob.core.windows.net/bank3d/bank3d.min.js"></script>
+         <script>
+            const loadingContainer = document.getElementById("loading-container");
+            const CURRENCY_CODE = "NGN";
+            const EMAIL = "test@gmail.com";
+            const COLOR = "#123366";
+            const MODE = "test";
+
+            const handlePaymentReady = flutter.JavascriptChannel("PAYMENT_READY");
+            const handlePaymentCancelled = flutter.JavascriptChannel("PAYMENT_CANCELLED");
+            const handlePaymentCompleted = flutter.JavascriptChannel("PAYMENT_COMPLETED");
+            const handleNoInternetConnection = flutter.JavascriptChannel("NO_INTERNET_CONNECTION");
+
+            function openPaymentForm(transactionReference, amount) {
+                const payment = window.Bank3D.createPayment({
+                    reference: transactionReference,
+                    currencyCode: CURRENCY_CODE,
+                    merchantKey: "B3DD4DloZ2MGZl2JWyhjPoNA",
+                    amount: amount * 100,
+                    email: EMAIL,
+                    color: COLOR,
+                    mode: MODE,
+                    onReady() {
+                        // The popup's iframe has loaded and it's preloader is visible
+                        // Use this to stop you own custom preloader
+                        loadingContainer.style.display = 'none';
+                        handlePaymentReady.postMessage("Payment is ready");
+                    },
+                    onClose() {
+                        // The user closed the popup or transaction was not completed
+                        handlePaymentCancelled.postMessage("Payment Cancelled");
+                    },
+                    callback(response) {
+                        // Transaction was completed and it was successfull.
+                        // This is the stage where it's necessary to verify the payment using "reference" argument
+                        handlePaymentCompleted.postMessage(response.reference);
+                    },
+                });
+                payment.open();
+            }
+
+            function handleOnlineStatus() {
+                if (navigator.onLine === false) {
+                    handleNoInternetConnection.postMessage("No Internet Connection");
+                }
+            }
+
+            // window.addEventListener('online', handleOnlineStatus);
+            window.addEventListener('offline', handleOnlineStatus);
+         </script>
+    </body>
+</html>

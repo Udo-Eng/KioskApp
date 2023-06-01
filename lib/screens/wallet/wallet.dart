@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kiosk_desktop_app/widgets/shared/payment/payment.dart';
 import '../../widgets/wallet/fund_wallet.dart';
 import '../../widgets/wallet/deposit_wallet.dart';
 import '../../widgets/wallet/steps_to_fund_wallet.dart';
@@ -26,7 +27,25 @@ class _WalletScreenState extends State<WalletScreen> {
           Container(
             height: 90,
           ),
-          StepsToFundWallet()
+          StepsToFundWallet(),
+          ElevatedButton(
+              onPressed: () {
+                showModalBottomSheet(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return PaymentWidget(
+                        amount: 100,
+                        transactionReference: "ddbj2k2kks",
+                        handlePaymentCompleted: (e) {},
+                        handlePaymentCancelled: () {},
+                        handlePaymentReady: () {},
+                        handleNoInternetConnection: () {},
+                        screenWidth: 600,
+                        screenHeight: 600,
+                      );
+                    });
+              },
+              child: Text("Hello"))
         ],
       ),
     );

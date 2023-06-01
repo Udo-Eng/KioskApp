@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kiosk_desktop_app/models/hospital_configuration_model.dart';
 import 'package:kiosk_desktop_app/models/hospital_list_model.dart';
 import 'package:kiosk_desktop_app/providers/configuration_provider.dart';
+import 'package:kiosk_desktop_app/providers/hospital_list_provider.dart';
 import '../../widgets/shared/dropdown_input_field.dart';
 import '../../widgets/shared/error_modal.dart';
 import '../../services/configuration.dart';
@@ -56,6 +57,7 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
 
   Widget build(BuildContext context) {
     final configuration_provider = Provider.of<ConfigurationProvider>(context);
+    final hospital_list_provider = Provider.of<HospitalListProvider>(context);
 
     handleSelectHospital() async {
       setState(() {
@@ -76,9 +78,9 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
                 _dropdownInputValue);
         final decodeApiResponse = json.decode(apiResponse.body);
         if (apiResponse.statusCode == 200) {
+          hospital_list_provider.addHospitals(_dropdownData);
           final apiAvailableSwitch = decodeApiResponse['AvailableSwitches'];
 
-          // print(json.decode(apiResponse.body));
           configuration_provider.hospitalConfiguration(
             HospitalConfigurationModel(
               HospitalId: decodeApiResponse['HospitalId'],
@@ -94,14 +96,17 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
                   : [],
             ),
           );
+          setState(() {
+            _isLoading = false;
+          });
           Navigator.pushNamed(context, CONFIGURATION_SCREEN_SUCCESS_ROUTE);
         } else {
           _showErrorModal(decodeApiResponse['message']);
+          setState(() {
+            _isLoading = false;
+          });
         }
       }
-      setState(() {
-        _isLoading = false;
-      });
     }
 
     return Visibility(
@@ -133,6 +138,7 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
               );
             } else {
               _dropdownData = snapshot.data;
+
               return Container(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
