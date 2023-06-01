@@ -34,3 +34,4 @@ class ConfigurationApiService {
     return response;
   }
 }
+

@@ -1,0 +1,43 @@
+import "package:flutter/material.dart";
+import '../../../widgets/payment/invoice/invoice_form.dart';
+import '../../../constants/routes.dart';
+
+class InvoiceScreen extends StatelessWidget {
+
+  const InvoiceScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    const String title = "Invoice Number";
+    const String description =
+        "Enter the invoice number to view the invoice and make payments";
+
+    void onSubmitHandler() {
+      
+      // Navigate to the invoice Details page 
+      Navigator.of(context).pushNamed(PAYMENT_INVOICE_DETAILS);
+    }
+
+
+    return Container(
+      width: width,
+      height: 1700,
+      decoration: const BoxDecoration(
+          border: Border.symmetric(
+        horizontal: BorderSide.none,
+        vertical: BorderSide(
+          color: Color.fromRGBO(90, 200, 250, 0.4),
+          width: 20,
+        ),
+      )),
+      margin: const EdgeInsets.all(10),
+      child: InvoiceForm(
+          title: title,
+          description: description,
+          onSubmit: onSubmitHandler,
+          hintText: 'Enter invoice number',
+        ),
+    );
+  }
+}

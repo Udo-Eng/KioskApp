@@ -21,12 +21,11 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
   bool _isLoading = false;
   Future<List<HospitalListModel>> _futureDropdownOptions =
       ConfigurationApiService.fetchHospitals();
-  var _dropdownInputValue = null;
-  String _dropdownHintText = "Select hospital";
+  String _dropdownInputValue = "";
+  final String _dropdownHintText = "Select hospital";
   List<HospitalListModel> _dropdownData = [];
 
   _onChangeDropdownInput(String? e) {
-    print(e);
     setState(() {
       _dropdownInputValue = e as String;
     });
@@ -63,10 +62,8 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
       setState(() {
         _isLoading = true;
       });
-      print(_dropdownInputValue);
-      if (_dropdownInputValue == "" ||
-          _dropdownInputValue == null ||
-          _dropdownInputValue == "Select") {
+
+      if (_dropdownInputValue == "" || _dropdownInputValue == "Select") {
         sharedErrorModal(
             context: context,
             errorMessage: "Please select an hospital",
@@ -114,14 +111,14 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
           future: _futureDropdownOptions,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator();
+              return const CircularProgressIndicator();
             } else if (snapshot.hasError) {
               return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      margin: EdgeInsets.fromLTRB(0, 0, 0, 30),
+                      margin: const EdgeInsets.fromLTRB(0, 0, 0, 30),
                       child: Text('Error: ${snapshot.error}'),
                     ),
                     ElevatedButton(
@@ -131,7 +128,7 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
                               ConfigurationApiService.fetchHospitals();
                         });
                       },
-                      child: Text('Refresh'),
+                      child: const Text('Refresh'),
                     ),
                   ],
                 ),
@@ -139,95 +136,93 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
             } else {
               _dropdownData = snapshot.data;
 
-              return Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.fromLTRB(40, 0, 40, 29),
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: EdgeInsets.fromLTRB(40, 0, 40, 29),
+                    child: const Text(
+                      "Kiosk configuration set up",
+                      style: TextStyle(
+                        fontSize: 36,
+                        fontWeight: FontWeight.w800,
+                        fontFamily: 'Avenir',
+                        // height: 44,
+                        letterSpacing: -0.5,
+                        fontStyle: FontStyle.normal,
+                        color: Color(0xFF1E2024),
+                      ),
+                    ),
+                  ),
+                  Container(
+                      margin: EdgeInsets.fromLTRB(40, 0, 40, 98),
                       child: const Text(
-                        "Kiosk configuration set up",
+                        "Enter the kiosk hospital to complete set up",
                         style: TextStyle(
-                          fontSize: 36,
+                          fontSize: 25,
                           fontWeight: FontWeight.w800,
                           fontFamily: 'Avenir',
-                          // height: 44,
-                          letterSpacing: -0.5,
+                          letterSpacing: -0.25,
                           fontStyle: FontStyle.normal,
-                          color: Color(0xFF1E2024),
+                          color: Color(0xFF636B75),
                         ),
-                      ),
-                    ),
-                    Container(
-                        margin: EdgeInsets.fromLTRB(40, 0, 40, 98),
-                        child: const Text(
-                          "Enter the kiosk hospital to complete set up",
-                          style: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.w800,
-                            fontFamily: 'Avenir',
-                            letterSpacing: -0.25,
-                            fontStyle: FontStyle.normal,
-                            color: Color(0xFF636B75),
-                          ),
+                      )),
+                  Container(
+                    width: 300,
+                    height: 72,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(
+                          color: Color(0xffA7A7A7),
+                          width: 0.7,
                         )),
-                    Container(
-                      width: 300,
-                      height: 72,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(
-                            color: Color(0xffA7A7A7),
-                            width: 0.7,
-                          )),
-                      padding: EdgeInsets.fromLTRB(10, 25, 10, 0),
-                      child: SharedDropdownInput(
-                        hintText: _dropdownHintText,
-                        value: _dropdownInputValue,
-                        options: _dropdownData,
-                        onChanged: _onChangeDropdownInput,
-                      ),
+                    padding: EdgeInsets.fromLTRB(10, 25, 10, 0),
+                    child: SharedDropdownInput(
+                      hintText: _dropdownHintText,
+                      value: _dropdownInputValue,
+                      options: _dropdownData,
+                      onChanged: _onChangeDropdownInput,
                     ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(0, 75, 0, 0),
-                      width: 300,
-                      height: 64,
-                      child: ElevatedButton(
-                        onPressed: _dropdownInputValue == "Select" ||
-                                _dropdownInputValue == null ||
-                                _isLoading == true
-                            ? null
-                            : handleSelectHospital,
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll(
-                            _dropdownInputValue == "Select" ||
-                                    _dropdownInputValue == null
-                                ? Color(0xffB6DAF6)
-                                : Color(0xff1B88DF),
-                          ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.fromLTRB(0, 75, 0, 0),
+                    width: 300,
+                    height: 64,
+                    child: ElevatedButton(
+                      onPressed: _dropdownInputValue == "Select" ||
+                              _dropdownInputValue == null ||
+                              _isLoading == true
+                          ? null
+                          : handleSelectHospital,
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStatePropertyAll(
+                          _dropdownInputValue == "Select" ||
+                                  _dropdownInputValue == null
+                              ? Color(0xffB6DAF6)
+                              : Color(0xff1B88DF),
                         ),
-                        child: _isLoading
-                            ? const SizedBox(
-                                child: CircularProgressIndicator(
-                                  color: Colors.white,
-                                ),
-                                height: 20.0,
-                                width: 20.0,
-                              )
-                            : const Text(
-                                'Submit',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 28,
-                                  fontFamily: 'Avenir',
-                                  letterSpacing: -0.5,
-                                  fontWeight: FontWeight.w800,
-                                ),
-                              ),
                       ),
-                    )
-                  ],
-                ),
+                      child: _isLoading
+                          ? const SizedBox(
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                              height: 20.0,
+                              width: 20.0,
+                            )
+                          : const Text(
+                              'Submit',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 28,
+                                fontFamily: 'Avenir',
+                                letterSpacing: -0.5,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                    ),
+                  )
+                ],
               );
             }
           }),
