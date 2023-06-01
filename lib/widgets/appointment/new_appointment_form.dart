@@ -7,7 +7,6 @@ import './form_widgets/availiable_time.dart';
 import './cancel_appointment_button.dart';
 import './schedule_success_modal.dart';
 
-
 class NewAppointmentForm extends StatefulWidget {
   const NewAppointmentForm({super.key});
 
@@ -25,7 +24,6 @@ class _NewAppointmentFormState extends State<NewAppointmentForm> {
       ScheduleSuccessModal(
           context: context, accountNumber: '2265734987', bankName: "ReadyCash");
     }
-
 
     return Container(
       width: 773,
@@ -116,19 +114,17 @@ class _NewAppointmentFormState extends State<NewAppointmentForm> {
             // SELECT CLINIC
             const DropDropMenuWidget(
               label: "Clinic",
-              items: ["Select clinic","UCH -Ibadan","UTH ikeja"],
+              items: ["Select clinic", "UCH -Ibadan", "UTH ikeja"],
             ),
-
 
             const SizedBox(
               height: 45,
             ),
-            
-        
+
             //  SELECT CLINIC SPECIALTY
             const DropDropMenuWidget(
                 label: "Clinic specialty   (Optional)",
-                items: ["Select specialty unit","Dentist","Child care"]),
+                items: ["Select specialty unit", "Dentist", "Child care"]),
 
             const SizedBox(
               height: 45,
@@ -159,7 +155,7 @@ class _NewAppointmentFormState extends State<NewAppointmentForm> {
             ),
 
             // BOOK AN APPOINTMENT BUTTON
-            const SizedBox(
+            SizedBox(
               width: 672,
               height: 80,
               child: Center(
@@ -168,12 +164,14 @@ class _NewAppointmentFormState extends State<NewAppointmentForm> {
                   height: 77,
                   child: ElevatedButton(
                     onPressed: () {
-                      // ScheduleSuccessModal(
-                      //     context: context, accountNumber: '2265734987', bankName: "ReadyCash");
+                      ScheduleSuccessModal(
+                          context: context,
+                          accountNumber: '2265734987',
+                          bankName: "ReadyCash");
                       // Handle button press
                     },
                     // onPressed: ,
-                    child: Padding(
+                    child: const Padding(
                       padding: EdgeInsets.symmetric(
                           vertical: 15.0, horizontal: 90.0),
                       child: Text(
