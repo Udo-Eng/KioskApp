@@ -176,8 +176,38 @@ Dialog? ScheduleSuccessModal(
                           ),
                         ],
                       ),
-                    )
+                    ),
 
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        OutlinedButton(
+                          style: TextButton.styleFrom(
+                            fixedSize: const Size(146, 60),
+                            foregroundColor: const Color.fromRGBO(189, 189, 189, 1),
+                            textStyle: const TextStyle(
+                                fontSize: 22,
+                                fontFamily: "Avenir",
+                                fontWeight: FontWeight.w800),
+                          ),
+                          onPressed: () {},
+                          child: const Text("Cancel"),
+                        ),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                            fixedSize: const Size(189, 60),
+                            foregroundColor: const Color.fromRGBO(255, 255, 255, 1),
+                            backgroundColor: const Color.fromRGBO(27, 136, 223, 1),
+                            textStyle: const TextStyle(
+                                fontSize: 22,
+                                fontFamily: "Avenir",
+                                fontWeight: FontWeight.w800),
+                          ),
+                          onPressed: () {},
+                          child: const Text('Yes, contiune'),
+                        )
+                      ],
+                    )
                   ],
                 ),
               ),
