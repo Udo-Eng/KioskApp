@@ -1,16 +1,19 @@
 import "package:flutter/material.dart";
 import "../../shared/custom_button.dart";
-import "../modals/payment_option.dart";
+// import "../modals/payment_option.dart";
+// import "../../../constants/routes.dart";
 
 class InvoiceForm extends StatefulWidget {
   final String title;
   final String description;
   final Function onSubmit;
+  final String hintText;
 
   const InvoiceForm(
       {required this.title,
       required this.description,
       required this.onSubmit,
+      required this.hintText,
       super.key});
 
   @override
@@ -18,19 +21,6 @@ class InvoiceForm extends StatefulWidget {
 }
 
 class _InvoiceFormState extends State<InvoiceForm> {
-  void displayPaymentOptionsModal(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-          child: const PaymentOption(),
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,9 +73,9 @@ class _InvoiceFormState extends State<InvoiceForm> {
                 ),
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: const TextField(
+              child:  TextField(
                 cursorHeight: 40,
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: "Avenir",
                   fontSize: 28,
                   fontWeight: FontWeight.w800,
@@ -94,7 +84,9 @@ class _InvoiceFormState extends State<InvoiceForm> {
                 ),
                 cursorColor: Colors.black,
                 decoration: InputDecoration(
-                    border: InputBorder.none, hintText: 'Enter invoice number'),
+                    border: InputBorder.none, 
+                    hintText: widget.hintText,
+                    ),
               ),
             ),
             const SizedBox(
@@ -102,7 +94,7 @@ class _InvoiceFormState extends State<InvoiceForm> {
             ),
             CustomButton(
               text: "Submit",
-              onClickHandler: () => displayPaymentOptionsModal(context),
+              onClickHandler: () => widget.onSubmit(context),
             ),
           ]),
     );

@@ -1,27 +1,27 @@
 import "package:flutter/material.dart";
 import '../../../widgets/payment/invoice/invoice_form.dart';
+import '../../../constants/routes.dart';
 
 class InvoiceScreen extends StatelessWidget {
 
   const InvoiceScreen({super.key});
 
-  
-
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     const String title = "Invoice Number";
     const String description =
         "Enter the invoice number to view the invoice and make payments";
 
     void onSubmitHandler() {
-      // print("Form submitted");
+      
+      // Navigate to the invoice Details page 
+      Navigator.of(context).pushNamed(PAYMENT_INVOICE_DETAILS);
     }
-
-    // Added the  Border color to the screen 
 
 
     return Container(
-      width: 1075,
+      width: width,
       height: 1700,
       decoration: const BoxDecoration(
           border: Border.symmetric(
@@ -36,6 +36,7 @@ class InvoiceScreen extends StatelessWidget {
           title: title,
           description: description,
           onSubmit: onSubmitHandler,
+          hintText: 'Enter invoice number',
         ),
     );
   }

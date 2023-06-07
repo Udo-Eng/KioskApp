@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
-import '../../widgets/shared/dropdown_input_field.dart';
-import '../../widgets/shared/error_modal.dart';
-import '../../services/configuration.dart';
-import '../../constants/routes.dart';
+import 'package:kiosk_desktop_app/models/hospital_configuration_model.dart';
+import 'package:kiosk_desktop_app/models/hospital_list_model.dart';
+import 'package:kiosk_desktop_app/providers/configuration_provider.dart';
+import 'package:kiosk_desktop_app/providers/hospital_list_provider.dart';
+// import 'package:kiosk_desktop_app/routes/key.dart';
+import 'package:kiosk_desktop_app/widgets/shared/error_modal.dart';
+import 'package:kiosk_desktop_app/services/configuration.dart';
+import 'package:kiosk_desktop_app/constants/routes.dart';
+import 'package:provider/provider.dart';
+import 'dart:convert';
 
 class ConfigurationScreen extends StatefulWidget {
   const ConfigurationScreen({super.key});
@@ -13,9 +19,11 @@ class ConfigurationScreen extends StatefulWidget {
 
 class _ConfigurationScreenState extends State<ConfigurationScreen> {
   bool _isLoading = false;
-  List<String> _dropdownOptions = ["Select", "Moses", "Dayo", "M"];
-  var _dropdownInputValue = null;
-  String _dropdownHintText = "Select hospital";
+  Future<List<HospitalListModel>> _futureDropdownOptions =
+      ConfigurationApiService.fetchHospitals();
+  String? _dropdownInputValue = null;
+  final String _dropdownHintText = "Select hospital";
+  List<HospitalListModel> _dropdownData = [];
 
   _onChangeDropdownInput(String? e) {
     setState(() {
@@ -23,47 +31,113 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
     });
   }
 
-  _handleSelectHospital() {
-    print(_dropdownInputValue);
-    if (_dropdownInputValue == "" ||
-        _dropdownInputValue == null ||
-        _dropdownInputValue == "Select") {
-      sharedErrorModal(
-          context: context,
-          errorMessage: "Please select an hospital",
-          width: 200,
-          height: 200);
-    } else {
-      Navigator.pushNamed(context, CONFIGURATION_SCREEN_SUCCESS_ROUTE);
-    }
+  _showErrorModal(String errMsg) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('Error'),
+        content: Text(errMsg),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text('OK'),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
   void initState() {
     super.initState();
-    _isLoading = true;
-    _loadData();
-  }
-
-  void dispose() {
     _isLoading = false;
-    super.dispose();
-  }
-
-  Future<void> _loadData() async {
-    final apiResponse = await fetchHospitals();
-    setState(() {});
+    _futureDropdownOptions = ConfigurationApiService.fetchHospitals();
   }
 
   Widget build(BuildContext context) {
+    final configuration_provider = Provider.of<ConfigurationProvider>(context);
+    final hospital_list_provider = Provider.of<HospitalListProvider>(context);
+
+    handleSelectHospital() async {
+      setState(() {
+        _isLoading = true;
+      });
+
+      if (_dropdownInputValue == "" || _dropdownInputValue == "Select") {
+        sharedErrorModal(
+            context: context,
+            errorMessage: "Please select an hospital",
+            width: 200,
+            height: 200);
+      } else {
+        final apiResponse =
+            await ConfigurationApiService.fetchHospitalConfiguration(
+                _dropdownInputValue as String);
+        final decodeApiResponse = json.decode(apiResponse.body);
+        if (apiResponse.statusCode == 200) {
+          hospital_list_provider.addHospitals(_dropdownData);
+          final apiAvailableSwitch = decodeApiResponse['AvailableSwitches'];
+
+          configuration_provider.hospitalConfiguration(
+            HospitalConfigurationModel(
+              HospitalId: decodeApiResponse['HospitalId'],
+              Name: decodeApiResponse['Name'],
+              AvailableSwitches: apiAvailableSwitch is List
+                  ? apiAvailableSwitch.map((data) {
+                      return AvailableSwitchModel(
+                        Provider: data['Provider'],
+                        DepositPublicKey: data['DepositPublicKey'],
+                        InvoicePublicKey: data['InvoicePublicKey'],
+                      );
+                    }).toList()
+                  : [],
+            ),
+          );
+          setState(() {
+            _isLoading = false;
+          });
+
+          Navigator.pushNamed(context, CONFIGURATION_SCREEN_SUCCESS_ROUTE);
+        } else {
+          _showErrorModal(decodeApiResponse['message']);
+          setState(() {
+            _isLoading = false;
+          });
+        }
+      }
+    }
+
     return Visibility(
-      visible: _isLoading,
       child: FutureBuilder(
-          future: fetchHospitals(),
+          future: _futureDropdownOptions,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
-            print(snapshot);
-            return Container(
-              child: Column(
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator();
+            } else if (snapshot.hasError) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.fromLTRB(0, 0, 0, 30),
+                      child: Text('Error: ${snapshot.error}'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          _futureDropdownOptions =
+                              ConfigurationApiService.fetchHospitals();
+                        });
+                      },
+                      child: const Text('Refresh'),
+                    ),
+                  ],
+                ),
+              );
+            } else {
+              _dropdownData = snapshot.data;
+
+              return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
@@ -107,14 +181,33 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
                     // child: SharedDropdownInput(
                     //   hintText: _dropdownHintText,
                     //   value: _dropdownInputValue,
-                    //   options: _dropdownOptions,
+                    //   options: _dropdownData,
                     //   onChanged: _onChangeDropdownInput,
                     // ),
-                    child: SharedDropdownInput(
-                      hintText: _dropdownHintText,
+                    child: DropdownButton<String>(
+                      hint: Text(_dropdownHintText),
+                      elevation: 10,
+                      itemHeight: 64,
+                      menuMaxHeight: 300,
+                      underline: const Text(""),
                       value: _dropdownInputValue,
-                      options: _dropdownOptions,
                       onChanged: _onChangeDropdownInput,
+                      isDense: true,
+                      isExpanded: true,
+                      focusColor: Colors.blue,
+                      iconSize: 0,
+                      dropdownColor: Colors.white,
+                      style: const TextStyle(
+                        color: Color(0xff828282),
+                        // backgroundColor: Colors.white,
+                      ),
+                      items: _dropdownData.map<DropdownMenuItem<String>>(
+                          (HospitalListModel hospital) {
+                        return DropdownMenuItem(
+                          value: hospital.ID,
+                          child: Text(hospital.Name),
+                        );
+                      }).toList(),
                     ),
                   ),
                   Container(
@@ -123,9 +216,10 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
                     height: 64,
                     child: ElevatedButton(
                       onPressed: _dropdownInputValue == "Select" ||
-                              _dropdownInputValue == null
+                              _dropdownInputValue == null ||
+                              _isLoading == true
                           ? null
-                          : _handleSelectHospital,
+                          : handleSelectHospital,
                       style: ButtonStyle(
                         backgroundColor: MaterialStatePropertyAll(
                           _dropdownInputValue == "Select" ||
@@ -134,21 +228,29 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
                               : const Color(0xff1B88DF),
                         ),
                       ),
-                      child: const Text(
-                        'Submit',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 28,
-                          fontFamily: 'Avenir',
-                          letterSpacing: -0.5,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
+                      child: _isLoading
+                          ? const SizedBox(
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                              height: 20.0,
+                              width: 20.0,
+                            )
+                          : const Text(
+                              'Submit',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 28,
+                                fontFamily: 'Avenir',
+                                letterSpacing: -0.5,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
                     ),
                   )
                 ],
-              ),
-            );
+              );
+            }
           }),
     );
   }

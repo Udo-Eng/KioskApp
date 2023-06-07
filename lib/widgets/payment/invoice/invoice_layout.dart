@@ -19,7 +19,6 @@ class InvoiceLayout extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            // AppHeader(title: title, navText: navText,),
             HeaderWidget(headerTitle : title,onBackButtonPress: onBackButtonPress,navText: navText,),
             SingleChildScrollView(
               child: childWidget,

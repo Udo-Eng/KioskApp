@@ -8,8 +8,13 @@ class HospitalListProvider with ChangeNotifier {
     return [..._items];
   }
 
-  void addHospitals(HospitalListModel value) {
+  void addHospital(HospitalListModel value) {
     _items.add(value);
+    notifyListeners();
+  }
+
+  void addHospitals(List<HospitalListModel> value) {
+    _items = value;
     notifyListeners();
   }
 }

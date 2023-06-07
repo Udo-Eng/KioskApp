@@ -1,5 +1,7 @@
 class HospitalListModel {
-  final int id;
+  final String ID;
+  final String Name;
+  final String Code;
 
-  HospitalListModel({required this.id});
+  HospitalListModel({required this.ID, required this.Name, required this.Code});
 }
