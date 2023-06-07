@@ -125,31 +125,25 @@ Dialog? ScheduleSuccessModal(
                         children: [
                           Expanded(
                             flex: 1,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0), // Add padding here
-                              child: ElevatedButton(
-                                onPressed: handleModalClose,
-                                style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all<Color>(Color(0xffFFFFFF)),
-                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
+                            child: ElevatedButton(
+                              onPressed: handleModalClose,
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all<Color>(Color(0xffFFFFFF)),
+                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
                                 ),
-                                child: const Padding(
-                                  padding: EdgeInsets.all(8.0), // Add padding for the button's content
-                                  child: Text(
-                                    'Cancel',
-                                    style: TextStyle(
-                                      fontSize: 22,
-                                      fontFamily: 'Avenir',
-                                      fontWeight: FontWeight.w800,
-                                      fontStyle: FontStyle.normal,
-                                      color: Color(0xffBDBDBD),
-                                      letterSpacing: -0.25,
-                                    ),
-                                  ),
+                              ),
+                              child: const Text(
+                                'Cancel',
+                                style: TextStyle(
+                                  fontSize: 22,
+                                  fontFamily: 'Avenir',
+                                  fontWeight: FontWeight.w800,
+                                  fontStyle: FontStyle.normal,
+                                  color: Color(0xffBDBDBD),
+                                  letterSpacing: -0.25,
                                 ),
                               ),
                             ),
@@ -157,31 +151,25 @@ Dialog? ScheduleSuccessModal(
                           SizedBox(width: 16), // Add some spacing between the buttons
                           Expanded(
                             flex: 1,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0), // Add padding here
-                              child: ElevatedButton(
-                                onPressed: handleModalClose,
-                                style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all<Color>(Color(0xff1B88DF)),
-                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
+                            child: ElevatedButton(
+                              onPressed: handleModalClose,
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all<Color>(Color(0xff1B88DF)),
+                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
                                 ),
-                                child: const Padding(
-                                  padding: EdgeInsets.all(8.0), // Add padding for the button's content
-                                  child: Text(
-                                    'Yes, continue',
-                                    style: TextStyle(
-                                      fontSize: 22,
-                                      fontFamily: 'Avenir',
-                                      fontWeight: FontWeight.w800,
-                                      fontStyle: FontStyle.normal,
-                                      color: Color(0xffFFFFFF),
-                                      letterSpacing: -0.25,
-                                    ),
-                                  ),
+                              ),
+                              child: const Text(
+                                'Yes, contiune',
+                                style: TextStyle(
+                                  fontSize: 22,
+                                  fontFamily: 'Avenir',
+                                  fontWeight: FontWeight.w800,
+                                  fontStyle: FontStyle.normal,
+                                  color: Color(0xffFFFFFF),
+                                  letterSpacing: -0.25,
                                 ),
                               ),
                             ),
@@ -189,7 +177,6 @@ Dialog? ScheduleSuccessModal(
                         ],
                       ),
                     )
-
 
                   ],
                 ),
