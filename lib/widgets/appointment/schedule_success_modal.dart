@@ -90,93 +90,64 @@ Dialog? ScheduleSuccessModal(
                     //   width: 538,
                     //   height: 88,
                     //   margin: const EdgeInsets.fromLTRB(0, 123, 0, 170),
-                    //   child: ElevatedButton(
-                    //     onPressed: handleModalClose,
-                    //     style: ButtonStyle(
-                    //       backgroundColor: const MaterialStatePropertyAll(
-                    //         Color(0xff1B88DF),
-                    //       ),
-                    //       shape:
-                    //       MaterialStateProperty.all<RoundedRectangleBorder>(
-                    //         RoundedRectangleBorder(
-                    //           borderRadius: BorderRadius.circular(4),
+                    //   child: Row(
+                    //     children: [
+                    //       Expanded(
+                    //         flex: 1,
+                    //         child: ElevatedButton(
+                    //           onPressed: handleModalClose,
+                    //           style: ButtonStyle(
+                    //             backgroundColor: MaterialStateProperty.all<Color>(Color(0xffFFFFFF)),
+                    //             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    //               RoundedRectangleBorder(
+                    //                 borderRadius: BorderRadius.circular(10),
+                    //               ),
+                    //             ),
+                    //           ),
+                    //           child: const Text(
+                    //             'Cancel',
+                    //             style: TextStyle(
+                    //               fontSize: 22,
+                    //               fontFamily: 'Avenir',
+                    //               fontWeight: FontWeight.w800,
+                    //               fontStyle: FontStyle.normal,
+                    //               color: Color(0xffBDBDBD),
+                    //               letterSpacing: -0.25,
+                    //             ),
+                    //           ),
                     //         ),
                     //       ),
-                    //     ),
-                    //     child: const Text(
-                    //       'Done',
-                    //       style: TextStyle(
-                    //         fontSize: 28,
-                    //         fontFamily: 'Avenir',
-                    //         fontWeight: FontWeight.w800,
-                    //         fontStyle: FontStyle.normal,
-                    //         color: Color(0xffFFFFFF),
-                    //         letterSpacing: -0.5,
+                    //       SizedBox(width: 16), // Add some spacing between the buttons
+                    //       Expanded(
+                    //         flex: 1,
+                    //         child: ElevatedButton(
+                    //           onPressed: handleModalClose,
+                    //           style: ButtonStyle(
+                    //             backgroundColor: MaterialStateProperty.all<Color>(Color(0xff1B88DF)),
+                    //             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    //               RoundedRectangleBorder(
+                    //                 borderRadius: BorderRadius.circular(8),
+                    //               ),
+                    //             ),
+                    //           ),
+                    //           child: const Text(
+                    //             'Yes, contiune',
+                    //             style: TextStyle(
+                    //               fontSize: 22,
+                    //               fontFamily: 'Avenir',
+                    //               fontWeight: FontWeight.w800,
+                    //               fontStyle: FontStyle.normal,
+                    //               color: Color(0xffFFFFFF),
+                    //               letterSpacing: -0.25,
+                    //             ),
+                    //           ),
+                    //         ),
                     //       ),
-                    //     ),
+                    //     ],
                     //   ),
                     // ),
 
-                    Container(
-                      width: 538,
-                      height: 88,
-                      margin: const EdgeInsets.fromLTRB(0, 123, 0, 170),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: ElevatedButton(
-                              onPressed: handleModalClose,
-                              style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all<Color>(Color(0xffFFFFFF)),
-                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                ),
-                              ),
-                              child: const Text(
-                                'Cancel',
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontFamily: 'Avenir',
-                                  fontWeight: FontWeight.w800,
-                                  fontStyle: FontStyle.normal,
-                                  color: Color(0xffBDBDBD),
-                                  letterSpacing: -0.25,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 16), // Add some spacing between the buttons
-                          Expanded(
-                            flex: 1,
-                            child: ElevatedButton(
-                              onPressed: handleModalClose,
-                              style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all<Color>(Color(0xff1B88DF)),
-                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                ),
-                              ),
-                              child: const Text(
-                                'Yes, contiune',
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontFamily: 'Avenir',
-                                  fontWeight: FontWeight.w800,
-                                  fontStyle: FontStyle.normal,
-                                  color: Color(0xffFFFFFF),
-                                  letterSpacing: -0.25,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    const SizedBox(height: 100),
 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -207,7 +178,9 @@ Dialog? ScheduleSuccessModal(
                           child: const Text('Yes, contiune'),
                         )
                       ],
-                    )
+                    ),
+
+                    const SizedBox(height: 50),
                   ],
                 ),
               ),
