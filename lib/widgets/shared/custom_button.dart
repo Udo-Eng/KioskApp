@@ -1,10 +1,11 @@
 import "package:flutter/material.dart";
 
 class CustomButton extends StatefulWidget {
-  final String text;
+  final Widget childWidget;
   final VoidCallback onClickHandler;
 
-  const CustomButton({required this.text,required this.onClickHandler,super.key});
+  const CustomButton({required this.childWidget,required this.onClickHandler,super.key});
+  
 
   @override
   State<CustomButton> createState() => _CustomButtonState();
@@ -23,16 +24,7 @@ class _CustomButtonState extends State<CustomButton> {
             borderRadius: BorderRadius.circular(4),
           ),
           child: Center(
-            child: Text(
-              widget.text,
-              style: const TextStyle(
-                fontFamily: "Avenir",
-                fontSize: 28,
-                fontWeight: FontWeight.w800,
-                fontStyle: FontStyle.normal,
-                color: Colors.white,
-              ),
-            ),
+            child: widget.childWidget,
           ),
         ));
   }

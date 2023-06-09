@@ -1,22 +1,27 @@
 import "package:flutter/material.dart";
 import "../modals/payment_option.dart";
+import "package:kiosk_desktop_app/models/invoice_details.dart";
+import 'package:intl/intl.dart';
+import "package:kiosk_desktop_app/models/invoice_item.dart";
 
 class InvoiceTable extends StatefulWidget {
-
-  const InvoiceTable({super.key});
+  final InvoiceDetailsModel invoiceItem;
+  const InvoiceTable({required this.invoiceItem, super.key});
 
   @override
   State<InvoiceTable> createState() => _InvoiceTableState();
 }
 
 class _InvoiceTableState extends State<InvoiceTable> {
+  int counter = 0;
+  String totalValue = "";
+  final numberFormatter = NumberFormat("#,##0.00", "en_US");
 
-
-     void closePaymentOptionsModal(BuildContext context){
+  void closePaymentOptionsModal(BuildContext context) {
     Navigator.of(context).pop();
   }
 
-  void displayPaymentOptionsModal(BuildContext context) {
+  void displayPaymentOptionsModal(BuildContext context, String amount) {
     showDialog(
       context: context,
       builder: (context) {
@@ -24,7 +29,10 @@ class _InvoiceTableState extends State<InvoiceTable> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
           ),
-          child: PaymentOption(cancelModal: () => closePaymentOptionsModal(context) ,),
+          child: PaymentOption(
+            cancelModal: () => closePaymentOptionsModal(context),
+            amount: amount,
+          ),
         );
       },
     );
@@ -32,36 +40,18 @@ class _InvoiceTableState extends State<InvoiceTable> {
 
   final tableHeader = ['Item', 'Amount', 'Qty', 'Total'];
 
-  final lists = [
-    {
-      'id': '1',
-      'item': 'Chloroquine Phosphate',
-      'amount': '4,000',
-      'qty': '1',
-      'total': '4,000'
-    },
-    {
-      'id': '2',
-      'item': 'Full Blood Count (FBC) (RBC, WBC, Platelet count',
-      'amount': '4,000',
-      'qty': '1',
-      'total': '4,000'
-    },
-    {
-      'id': '3',
-      'item': 'HIV Screening',
-      'amount': '1,500',
-      'qty': '1',
-      'total': '1,500'
-    },
-    {
-      'id': '4',
-      'item': 'Chloroquine Phosphate',
-      'amount': '4,000',
-      'qty': '1',
-      'total': '4,000'
-    },
-  ];
+  List<InvoiceItem> lists = [];
+
+// Initialize the state of Invoicedetails Table
+  @override
+  void initState() {
+    super.initState();
+
+    lists = widget.invoiceItem.items;
+
+    totalValue =
+        "${String.fromCharCode(0x20A6)}${numberFormatter.format(widget.invoiceItem.grandTotal)}";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -148,7 +138,7 @@ class _InvoiceTableState extends State<InvoiceTable> {
                     Padding(
                       padding: const EdgeInsets.all(8),
                       child: Table(
-                         columnWidths: const <int, TableColumnWidth>{
+                        columnWidths: const <int, TableColumnWidth>{
                           // 0: IntrinsicColumnWidth(),
                           // 1: FlexColumnWidth(),
                           1: FixedColumnWidth(300),
@@ -174,12 +164,12 @@ class _InvoiceTableState extends State<InvoiceTable> {
                           ),
                         ),
                         children: [
-                          for (var list in lists)
+                          for (var item in lists)
                             TableRow(children: [
                               Padding(
                                 padding: const EdgeInsets.all(18),
                                 child: Text(
-                                  list['id'] as String,
+                                  "${++counter}",
                                   style: const TextStyle(
                                     color: Color.fromRGBO(84, 87, 102, 1),
                                     fontSize: 20,
@@ -191,7 +181,7 @@ class _InvoiceTableState extends State<InvoiceTable> {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 25),
                                 child: Text(
-                                  list['item'] as String,
+                                  item.itemName,
                                   style: const TextStyle(
                                     color: Color.fromRGBO(84, 87, 102, 1),
                                     fontSize: 20,
@@ -203,7 +193,7 @@ class _InvoiceTableState extends State<InvoiceTable> {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 25),
                                 child: Text(
-                                  list['amount'] as String,
+                                  "${String.fromCharCode(0x20A6)}${numberFormatter.format(item.amount)}",
                                   style: const TextStyle(
                                       fontFamily: "Avenir",
                                       color: Color.fromRGBO(84, 87, 102, 1),
@@ -214,7 +204,7 @@ class _InvoiceTableState extends State<InvoiceTable> {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 25),
                                 child: Text(
-                                  list['qty'] as String,
+                                  (item.quantity ~/ 1).toString(),
                                   style: const TextStyle(
                                       fontFamily: "Avenir",
                                       color: Color.fromRGBO(84, 87, 102, 1),
@@ -225,7 +215,7 @@ class _InvoiceTableState extends State<InvoiceTable> {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 25),
                                 child: Text(
-                                  list['total'] as String,
+                                  "${String.fromCharCode(0x20A6)}${numberFormatter.format(item.total)}",
                                   style: const TextStyle(
                                       fontFamily: "Avenir",
                                       color: Color.fromRGBO(84, 87, 102, 1),
@@ -252,8 +242,8 @@ class _InvoiceTableState extends State<InvoiceTable> {
                       padding: const EdgeInsets.fromLTRB(18, 15, 24, 20),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const <Widget>[
-                          Text(
+                        children: <Widget>[
+                          const Text(
                             'Subtotal: ',
                             style: TextStyle(
                               fontFamily: "Avenir",
@@ -263,8 +253,8 @@ class _InvoiceTableState extends State<InvoiceTable> {
                             ),
                           ),
                           Text(
-                            'N16,000.00 ',
-                            style: TextStyle(
+                            "${String.fromCharCode(0x20A6)}${numberFormatter.format(widget.invoiceItem.total)}",
+                            style: const TextStyle(
                               fontFamily: "Avenir",
                               fontSize: 28,
                               fontWeight: FontWeight.bold,
@@ -282,7 +272,6 @@ class _InvoiceTableState extends State<InvoiceTable> {
               ),
 
               // TOTAL CONTAINER
-
               SizedBox(
                 width: 987,
                 child: Row(
@@ -319,21 +308,21 @@ class _InvoiceTableState extends State<InvoiceTable> {
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const <Widget>[
+                      children: <Widget>[
                         Text(
-                          'N0:',
-                          style: TextStyle(
+                          "${String.fromCharCode(0x20A6)}${numberFormatter.format(widget.invoiceItem.discountAmount)}",
+                          style: const TextStyle(
                               color: Color.fromRGBO(254, 25, 25, 1),
                               fontSize: 24,
                               fontFamily: "Avenir",
                               fontWeight: FontWeight.w600),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 22.0,
                         ),
                         Text(
-                          'N16,640.00',
-                          style: TextStyle(
+                          totalValue,
+                          style: const TextStyle(
                               fontFamily: "Avenir",
                               fontWeight: FontWeight.bold,
                               color: Color.fromRGBO(41, 43, 51, 1),
@@ -358,7 +347,7 @@ class _InvoiceTableState extends State<InvoiceTable> {
                       foregroundColor: Colors.white,
                       backgroundColor: const Color.fromRGBO(27, 136, 223, 1)),
                   onPressed: () {
-                    displayPaymentOptionsModal(context);
+                    displayPaymentOptionsModal(context, totalValue);
                   },
                   child: const Text(
                     'Make payment',

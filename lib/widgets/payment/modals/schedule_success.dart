@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class ScheduleSuccess extends StatelessWidget {
-  const ScheduleSuccess({super.key});
+
+  final String amount;
+  final Function cancelModal;
+
+  const ScheduleSuccess({required this.amount, required this.cancelModal ,super.key});
 
 
 
@@ -40,20 +44,20 @@ class ScheduleSuccess extends StatelessWidget {
             height: 45,
           ),
           RichText(
-            text: const TextSpan(
-              style: TextStyle(
+            text:  TextSpan(
+              style: const TextStyle(
                 color: Color.fromRGBO(52, 52, 52, 1),
                 fontFamily: "Avenir",
               ), //style for all textspan
               children: [
                 TextSpan(
-                  text: " ₦16,640.00 ",
-                  style: TextStyle(
+                  text: " $amount ",
+                  style: const TextStyle(
                     fontSize: 23,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                TextSpan(
+                const TextSpan(
                   text: "will be deducted from your E-wallet balance.",
                   style: TextStyle(fontSize: 22),
                 ),
@@ -81,7 +85,7 @@ class ScheduleSuccess extends StatelessWidget {
                       fontFamily: "Avenir",
                       fontWeight: FontWeight.w800),
                 ),
-                onPressed: () {},
+                onPressed: () { cancelModal(); },
                 child: const Text("Cancel"),
               ),
               TextButton(

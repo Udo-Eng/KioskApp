@@ -31,7 +31,7 @@ Map<String, WidgetBuilder> routes = {
       childWidget: const InvoiceScreen(),
       title: "Payment",
       navText: "Home",
-      onBackButtonPress: () => navigateToHome(context, HOME_SCREEN_ROUTE),
+      onBackButtonPress: () => navigateToRoute(context, HOME_SCREEN_ROUTE),
     );
   },
   PAYMENT_RETRIEVE_BILLS: (context) {
@@ -39,7 +39,7 @@ Map<String, WidgetBuilder> routes = {
       childWidget: const RetrieveBillsScreen(),
       title: "Payment",
       navText: "Home",
-      onBackButtonPress: () => navigateToHome(context, HOME_SCREEN_ROUTE),
+      onBackButtonPress: () => navigateToRoute(context, HOME_SCREEN_ROUTE),
     );
   },
   PAYMENT_INVOICE_DETAILS: (context) {
@@ -47,16 +47,15 @@ Map<String, WidgetBuilder> routes = {
       childWidget: const InvoiceDetails(),
       title: "Patient Invoice",
       navText: "Home",
-      onBackButtonPress: () => navigateToHome(context, HOME_SCREEN_ROUTE),
+      onBackButtonPress: () => navigateToRoute(context, HOME_SCREEN_ROUTE),
     );
   },
-  // MODAL_SCREENS: (context) => const ModalScreen(),
   PAYMENT_RETRIEVE_BILLS_OUTSTANDING: (context) {
     return InvoiceLayout(
       childWidget: const RetrieveBillsOutStandingScreen(),
       title: "Retrieve Bills",
       navText: "Home",
-      onBackButtonPress: () => navigateToHome(context, HOME_SCREEN_ROUTE),
+      onBackButtonPress: () => navigateToRoute(context, HOME_SCREEN_ROUTE),
     );
   },
   PAYMENT_RETRIEVE_BILLS_ALL: (context) {
@@ -64,7 +63,7 @@ Map<String, WidgetBuilder> routes = {
       childWidget: const RetrieveBillsAllScreen(),
       title: "Retrieve Bills",
       navText: "Home",
-      onBackButtonPress: () => navigateToHome(context, HOME_SCREEN_ROUTE),
+      onBackButtonPress: () => navigateToRoute(context, HOME_SCREEN_ROUTE),
     );
   },
   PAYMENT_RETRIEVE_BILLS_PAID: (context) {
@@ -72,7 +71,7 @@ Map<String, WidgetBuilder> routes = {
       childWidget: const RetrieveBillsPaidScreen(),
       title: "Retrieve Bills",
       navText: "Home",
-      onBackButtonPress: () => navigateToHome(context, HOME_SCREEN_ROUTE),
+      onBackButtonPress: () => navigateToRoute(context, HOME_SCREEN_ROUTE),
     );
   },
 };

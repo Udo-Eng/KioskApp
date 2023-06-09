@@ -56,3 +56,38 @@
         'status': 'paid'
       },
     ];
+
+
+
+
+    
+  final invoiceItemsList =  [
+    {
+      'id': '1',
+      'item': 'Chloroquine Phosphate',
+      'amount': '4,000',
+      'qty': '1',
+      'total': '4,000'
+    },
+    {
+      'id': '2',
+      'item': 'Full Blood Count (FBC) (RBC, WBC, Platelet count',
+      'amount': '4,000',
+      'qty': '1',
+      'total': '4,000'
+    },
+    {
+      'id': '3',
+      'item': 'HIV Screening',
+      'amount': '1,500',
+      'qty': '1',
+      'total': '1,500'
+    },
+    {
+      'id': '4',
+      'item': 'Chloroquine Phosphate',
+      'amount': '4,000',
+      'qty': '1',
+      'total': '4,000'
+    },
+  ];

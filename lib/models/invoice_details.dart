@@ -47,13 +47,13 @@ enum Status {
   all,
 }
 
-class InvoiceDetails {
+class InvoiceDetailsModel {
   final String patientName;
   final String  patientID;
   final String invoiceNumber;
   final String  physicianName;
-  final String total;
-  final String  grandTotal;
+  final double total;
+  final double  grandTotal;
   final double discountAmount;
   final String   tel;
   final DateTime date;
@@ -61,7 +61,7 @@ class InvoiceDetails {
   final List<InvoiceItem>  items; 
  
 
-  InvoiceDetails({
+  InvoiceDetailsModel({
     required this.patientName,
     required this.patientID,
     required this.invoiceNumber,

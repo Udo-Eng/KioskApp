@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-void navigateToHome(BuildContext context,String routeName) {
+
+// helper function to navigate to any route 
+void navigateToRoute(BuildContext context, String routeName) {
   Navigator.of(context).pushNamed(routeName);
 }
 

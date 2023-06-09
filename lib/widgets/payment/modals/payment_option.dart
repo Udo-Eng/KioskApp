@@ -5,17 +5,24 @@ import "../../../constants/routes.dart";
 
 class PaymentOption extends StatelessWidget {
   final VoidCallback cancelModal;
+  final String amount;
 
-  const PaymentOption({required this.cancelModal, super.key});
+  const PaymentOption(
+      {required this.cancelModal, required this.amount, super.key});
 
   void navigateToFastCareWallet(BuildContext context) {
-    // TODO NAVIGATE TO FASTCARE WALLET  WIDGET
+    // NAVIGATE TO FASTCARE WALLET  WIDGET
     Navigator.of(context).pushNamed(PAYMENT_INVOICE);
   }
 
   void navigateToDebitCard(BuildContext context) {
-    // TODO NAVIGATE TO  DEBIT CARD WIDGET
+    //  NAVIGATE TO  DEBIT CARD WIDGET
     // Navigator.of(context).pushNamed(PAYMENT_RETRIEVE_BILLS);
+  }
+
+  // function to  close modal and navigate back to payment option screen
+  void _closeDisplayScheduleSucessModal(BuildContext context) {
+    Navigator.of(context).pop();
   }
 
   void _displayScheduleSuccessModal(BuildContext context) {
@@ -26,15 +33,12 @@ class PaymentOption extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
           ),
-          child: const ScheduleSuccess(),
+          child: ScheduleSuccess(
+              cancelModal: () => _closeDisplayScheduleSucessModal(context),
+              amount: amount),
         );
       },
     );
-  }
-
-// function to  close modal and navigate back to form screen
-  void _closeBottomModalSheet(BuildContext context) {
-    Navigator.of(context).pop();
   }
 
   @override
@@ -72,10 +76,13 @@ class PaymentOption extends StatelessWidget {
                 const SizedBox(
                   width: 268,
                 ),
-                CancelSvg(
-                  color: const Color.fromRGBO(27, 136, 223, 1),
-                  width: 31,
-                  height: 30,
+                GestureDetector(
+                  onTap: () => cancelModal() ,
+                  child: CancelSvg(
+                    color: const Color.fromRGBO(27, 136, 223, 1),
+                    width: 31,
+                    height: 30,
+                  ),
                 )
               ],
             ),

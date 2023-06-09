@@ -1,19 +1,23 @@
 import "package:flutter/material.dart";
 import "../../shared/custom_button.dart";
+import "package:kiosk_desktop_app/widgets/shared/error_modal.dart";
 // import "../modals/payment_option.dart";
 // import "../../../constants/routes.dart";
 
+// ignore: must_be_immutable
 class InvoiceForm extends StatefulWidget {
+  final bool isLoading;
   final String title;
   final String description;
   final Function onSubmit;
   final String hintText;
 
-  const InvoiceForm(
+ InvoiceForm(
       {required this.title,
       required this.description,
       required this.onSubmit,
       required this.hintText,
+      required this.isLoading, 
       super.key});
 
   @override
@@ -21,6 +25,20 @@ class InvoiceForm extends StatefulWidget {
 }
 
 class _InvoiceFormState extends State<InvoiceForm> {
+  final _textFieldController = TextEditingController();
+
+  void onClickHandler(BuildContext context) {
+    if (_textFieldController.text.isNotEmpty) {
+      widget.onSubmit(context, _textFieldController.text);
+    } else {
+      //  Display the error modal prompting the user to enter a correct  value
+      sharedErrorModal(
+          context: context,
+          errorMessage: "Please enter a value",
+          width: 600,
+          height: 600);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +91,8 @@ class _InvoiceFormState extends State<InvoiceForm> {
                 ),
                 borderRadius: BorderRadius.circular(4),
               ),
-              child:  TextField(
+              child: TextField(
+                controller: _textFieldController,
                 cursorHeight: 40,
                 style: const TextStyle(
                   fontFamily: "Avenir",
@@ -84,17 +103,32 @@ class _InvoiceFormState extends State<InvoiceForm> {
                 ),
                 cursorColor: Colors.black,
                 decoration: InputDecoration(
-                    border: InputBorder.none, 
-                    hintText: widget.hintText,
-                    ),
+                  border: InputBorder.none,
+                  hintText: widget.hintText,
+                ),
               ),
             ),
             const SizedBox(
               height: 56,
             ),
             CustomButton(
-              text: "Submit",
-              onClickHandler: () => widget.onSubmit(context),
+              childWidget:  widget.isLoading ? const SizedBox(
+                              height: 20.0,
+                              width: 20.0,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                            ) :  const Text(
+              "Submit",
+              style: TextStyle(
+                fontFamily: "Avenir",
+                fontSize: 28,
+                fontWeight: FontWeight.w800,
+                fontStyle: FontStyle.normal,
+                color: Colors.white,
+              ),
+            ),
+              onClickHandler: () => onClickHandler(context),
             ),
           ]),
     );

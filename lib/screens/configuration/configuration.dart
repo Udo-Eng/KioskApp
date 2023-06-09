@@ -21,13 +21,15 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
   bool _isLoading = false;
   Future<List<HospitalListModel>> _futureDropdownOptions =
       ConfigurationApiService.fetchHospitals();
-  String? _dropdownInputValue = null;
+  String? _dropdownInputValue;
   final String _dropdownHintText = "Select hospital";
   List<HospitalListModel> _dropdownData = [];
 
-  _onChangeDropdownInput(String? e) {
+// function to set the hospital value in the hospital
+
+  _onChangeDropdownInput(String? value) {
     setState(() {
-      _dropdownInputValue = e as String;
+      _dropdownInputValue = value as String;
     });
   }
 
@@ -40,7 +42,7 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
         actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('OK'),
+            child: const Text('OK'),
           ),
         ],
       ),
@@ -202,12 +204,13 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
                         // backgroundColor: Colors.white,
                       ),
                       items: _dropdownData.map<DropdownMenuItem<String>>(
-                          (HospitalListModel hospital) {
-                        return DropdownMenuItem(
-                          value: hospital.ID,
-                          child: Text(hospital.Name),
-                        );
-                      }).toList(),
+                        (HospitalListModel hospital) {
+                          return DropdownMenuItem(
+                            value: hospital.ID,
+                            child: Text(hospital.Name),
+                          );
+                        },
+                      ).toList(),
                     ),
                   ),
                   Container(

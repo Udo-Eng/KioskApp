@@ -3,8 +3,8 @@ class InvoiceItem {
   final String itemName;
   final double total;
   final double amount;
-  final int  quantity; 
- 
+  final double quantity;
+  
 
   InvoiceItem({
     required this.total,
@@ -13,6 +13,3 @@ class InvoiceItem {
     required this.quantity,
   });
 }
-
-
-

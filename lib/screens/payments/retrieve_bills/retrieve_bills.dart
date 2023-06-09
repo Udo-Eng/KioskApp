@@ -29,6 +29,8 @@ class RetrieveBillsScreen extends StatelessWidget {
       )),
       margin: const EdgeInsets.all(10),
       child: InvoiceForm(
+        // TODO IMPLEMENT LOADING STATE FOR THIS FORM 
+          isLoading: false,
           title: title,
           description: description,
           onSubmit: onSubmitHandler,

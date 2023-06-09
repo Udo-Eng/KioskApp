@@ -1,3 +1,14 @@
+// {
+//   "InvoiceDate": "2023-04-28T10:13:00.44+01:00",
+//   "Id": "83d73cb7-4582-496f-a001-3deb2fb23c6d",
+//   "Number": "IN20270",
+//   "PatientName": "John Doe",
+//   "Gender": "Male",
+//   "HospitalNumber": null,
+//   "TotalAmount": 14000,
+//   "Items": []
+// }
+
 enum Status{
   outstanding,
   paid,
